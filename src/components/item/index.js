@@ -1,12 +1,10 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
-
+import {formatPrice} from '../../utils';
 function Item(props){
-
   const callbacks = {
     onAddToBasket: (e) => {
-      e.stopPropagation();
       props.onAddToBasket(props.item.code);
     }
   }
@@ -17,9 +15,12 @@ function Item(props){
       <div className='Item-title'>
         {props.item.title}
       </div>
+      <div className='Item-price'>
+        {formatPrice(props.item.price)}
+      </div>
       <div className='Item-actions'>
         <button onClick={callbacks.onAddToBasket}>
-          Добавить в корзину
+          Добавить
         </button>
       </div>
     </div>
@@ -30,6 +31,7 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    price: PropTypes.number
   }).isRequired,
   onAddToBasket: PropTypes.func,
 };

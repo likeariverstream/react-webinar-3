@@ -6,8 +6,9 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
     this.state.isOpenBasket = false;
-    this.state.basket = []
-    this.state.cost = 0
+    this.state.basket = [];
+    this.state.totalCost = 0;
+    this.state.totalCount = 0;
   }
 
   /**
@@ -42,7 +43,7 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Установка состояния модального окна корзины
    */
   toggleOpeningBasket(payload) {
     this.setState({
@@ -58,8 +59,24 @@ class Store {
   addItemToBasket(code) {
     this.setState({
       ...this.state,
-      basket: [...this.state.basket, this.state.list.find(item => item.code === code)],
-      cost: this.state.basket.reduce((acc, item) => acc + item.price, 0)
+      basket: this.state.basket.some(item => item.code === code) 
+        ? this.state.basket.map(item => item.code === code ? {...item, count: item.count + 1} : item)
+        : [...this.state.basket, {...this.state.list.find(item => item.code === code), count: 1}],
+      totalCost: this.state.totalCost + this.state.list.find(item => item.code === code).price,
+      totalCount: this.state.totalCount + 1
+    })
+  };
+  
+    /**
+   * Удаление записи по коду
+   * @param code
+   */
+  deleteItemFromBasket(code) {
+    this.setState({
+      ...this.state,
+      basket: this.state.basket.map(item => item.code === code ? {...item, count: item.count - 1} : item),
+      totalCost: this.state.totalCost - this.state.list.find(item => item.code === code).price,
+      totalCount: this.state.totalCount - 1
     })
   };
 

@@ -3,3 +3,16 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls span {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  white-space: pre;
+}
+
+.Controls-count {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}

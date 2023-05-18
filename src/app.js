@@ -1,19 +1,24 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
+import Basket from './components/basket';
 
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
-  const list = store.getState().list;
-  const basket = store.getState().basket
-  const cost = store.getState().cost
+function App({ store }) {
+  const state = {
+    list: store.getState().list,
+    basket: store.getState().basket,
+    totalCost: store.getState().totalCost,
+    totalCount: store.getState().totalCount,
+    isOpenBasket: store.getState().isOpenBasket
+  };
 
   const callbacks = {
     onAddItemToBasket: useCallback((code) => {
@@ -26,16 +31,35 @@ function App({store}) {
 
     onOpenBasket: useCallback(() => {
       store.toggleOpeningBasket(true);
+    }, [store]),
+
+    onCloseBasket: useCallback(() => {
+      store.toggleOpeningBasket(false);
+    }, [store]),
+
+    onDeleteItemFromBasket: useCallback((code) => {
+      store.deleteItemFromBasket(code);
     }, [store])
-  }
+  };
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS' basket={basket} cost={cost}/>
-      <Controls onOpenBasket={callbacks.onOpenBasket}/>
-      <List list={list}
-            onAddToBasket={callbacks.onAddItemToBasket}
-            />
+      <Head title='Магазин' />
+      <Controls
+        onOpenBasket={callbacks.onOpenBasket}
+        basket={state.basket}
+        totalCost={state.totalCost}
+        totalCount={state.totalCount} />
+      <List
+        list={state.list}
+        onAddToBasket={callbacks.onAddItemToBasket} />
+      {state.isOpenBasket && <Modal>
+        <Basket
+          basket={state.basket}
+          onDeleteItemFromBasket={callbacks.onDeleteItemFromBasket}
+          onCloseBasket={callbacks.onCloseBasket}
+          totalCost={state.totalCost} />
+      </Modal>}
     </PageLayout>
   );
 }
