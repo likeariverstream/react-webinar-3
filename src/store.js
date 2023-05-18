@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.state.isOpenBasket = false;
+    this.state.basket = []
+    this.state.cost = 0
   }
 
   /**
@@ -43,46 +44,25 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  toggleOpeningBasket(payload) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      isOpenBasket: payload
     })
   };
 
   /**
-   * Удаление записи по коду
+   * Добавление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  addItemToBasket(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      basket: [...this.state.basket, this.state.list.find(item => item.code === code)],
+      cost: this.state.basket.reduce((acc, item) => acc + item.price, 0)
     })
   };
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
-  }
 }
 
 export default Store;
