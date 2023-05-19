@@ -9,12 +9,12 @@ function Basket(props) {
     <div className='Basket'>
       <div className='Basket-head'>
         <h1>Корзина</h1>
-        <button onClick={props.onCloseBasket}>Закрыть корзину</button>
+        <button onClick={props.onCloseBasket}>Закрыть</button>
       </div>
       <BasketList basket={props.basket} onDeleteItemsFromBasket={props.onDeleteItemsFromBasket}/>
-      <span className='Basket-count'>
-        Итого: {props.totalCost > 0 ? formatPrice(props.totalCost) : formatPrice(0)}
-      </span>
+      <div className='Basket-count'>
+        Итого <span>{props.totalCost > 0 ? formatPrice(props.totalCost) : formatPrice(0)}</span>
+      </div>
     </div>
   )
 }

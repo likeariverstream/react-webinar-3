@@ -19,7 +19,7 @@ function BasketItem(props) {
         {formatPrice(props.item.price * props.item.count)}
       </div>
       <div className='Basket-item-count'>
-        <span>{props.item.count}</span>шт
+        {props.item.count} шт
       </div>
       <div className='Basket-item-actions'>
         <button onClick={callbacks.onDeleteItemsFromBasket}>
@@ -36,11 +36,11 @@ BasketItem.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  onDeleteItemFromBasket: PropTypes.func,
+  onDeleteItemsFromBasket: PropTypes.func,
 };
 
 BasketItem.defaultProps = {
-  onDeleteItemFromBasket: () => {},
+  onDeleteItemsFromBasket: () => {},
 }
 
 export default React.memo(BasketItem);

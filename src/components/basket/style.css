@@ -1,7 +1,8 @@
 .Basket {
   position: relative;
   display: flex;
-  width: 80vh;
+  width: 100vh;
+  /* width: 960px; */
   max-width: 960px;
   flex-direction: column;
   background: #FFFFFF;
@@ -16,7 +17,8 @@
   height: 80px;
   background: #f5f5f5;
   border-radius: 10px 10px 0 0;
-  padding: 20px;
+  padding: 0 32px 0 20px;
+  margin-bottom: 71px;
 }
 
 .Basket-head h1 {
@@ -27,9 +29,13 @@
 .Basket-count {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 120px 20px 20px;
+  padding: 20px 120px 89px 20px;
   white-space: pre;
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;
+}
+
+.Basket-count span {
+  padding-left: 46px;
 }
