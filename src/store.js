@@ -71,12 +71,12 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItemFromBasket(code) {
+  deleteItemsFromBasket(code) {
     this.setState({
       ...this.state,
-      basket: this.state.basket.map(item => item.code === code ? {...item, count: item.count - 1} : item),
-      totalCost: this.state.totalCost - this.state.list.find(item => item.code === code).price,
-      totalCount: this.state.totalCount - 1
+      basket: this.state.basket.filter(item => item.code !== code),
+      totalCost: this.state.basket.reduce((acc, item) => item.code !== code ? acc + item.price * item.count : 0, 0),
+      totalCount: this.state.basket.reduce((acc, item) => item.code !== code ? acc + item.count : 0, 0)
     })
   };
 

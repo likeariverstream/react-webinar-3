@@ -5,8 +5,8 @@ import {formatPrice} from '../../utils';
 
 function BasketItem(props) {
   const callbacks = {
-    onDeleteItemFromBasket: (e) => {
-      props.onDeleteItemFromBasket(props.item.code);
+    onDeleteItemsFromBasket: (e) => {
+      props.onDeleteItemsFromBasket(props.item.code);
     }
   }
   return (
@@ -22,7 +22,7 @@ function BasketItem(props) {
         <span>{props.item.count}</span>шт
       </div>
       <div className='Basket-item-actions'>
-        <button onClick={callbacks.onDeleteItemFromBasket}>
+        <button onClick={callbacks.onDeleteItemsFromBasket}>
           Удалить
         </button>
       </div>

@@ -15,7 +15,7 @@ function Basket(props) {
         props.basket.map(item => {
           if (item.count > 0) {
             return <div key={item.code} className='List-item'>
-              <BasketItem item={item} onDeleteItemFromBasket={props.onDeleteItemFromBasket} />
+              <BasketItem item={item} onDeleteItemsFromBasket={props.onDeleteItemsFromBasket} />
             </div>
           }
         }

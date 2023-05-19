@@ -37,8 +37,8 @@ function App({ store }) {
       store.toggleOpeningBasket(false);
     }, [store]),
 
-    onDeleteItemFromBasket: useCallback((code) => {
-      store.deleteItemFromBasket(code);
+    onDeleteItemsFromBasket: useCallback((code) => {
+      store.deleteItemsFromBasket(code);
     }, [store])
   };
 
@@ -56,7 +56,7 @@ function App({ store }) {
       {state.isOpenBasket && <Modal>
         <Basket
           basket={state.basket}
-          onDeleteItemFromBasket={callbacks.onDeleteItemFromBasket}
+          onDeleteItemsFromBasket={callbacks.onDeleteItemsFromBasket}
           onCloseBasket={callbacks.onCloseBasket}
           totalCost={state.totalCost} />
       </Modal>}
