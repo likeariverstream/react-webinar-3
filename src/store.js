@@ -75,8 +75,18 @@ class Store {
     this.setState({
       ...this.state,
       basket: this.state.basket.filter(item => item.code !== code),
-      totalCost: this.state.basket.reduce((acc, item) => item.code !== code ? acc + item.price * item.count : 0, 0),
-      totalCount: this.state.basket.reduce((acc, item) => item.code !== code ? acc + item.count : 0, 0)
+      totalCost: this.state.basket.reduce((acc, item) => {
+        if (item.code !== code) {
+          return acc + item.count * item.price;
+        }
+        return acc;
+      }, 0),
+      totalCount: this.state.basket.reduce((acc, item) => {
+        if (item.code !== code) {
+          return acc + item.count;
+        }
+        return acc;
+      }, 0)
     })
   };
 
