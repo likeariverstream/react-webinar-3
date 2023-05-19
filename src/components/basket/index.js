@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import BasketItem from '../basket-item';
+import BasketList from '../basket-list';
 import {formatPrice} from '../../utils';
 
 function Basket(props) {
@@ -11,16 +11,7 @@ function Basket(props) {
         <h1>Корзина</h1>
         <button onClick={props.onCloseBasket}>Закрыть корзину</button>
       </div>
-      <div className='Basket-list'>{
-        props.basket.map(item => {
-          if (item.count > 0) {
-            return <div key={item.code} className='List-item'>
-              <BasketItem item={item} onDeleteItemsFromBasket={props.onDeleteItemsFromBasket} />
-            </div>
-          }
-        }
-        )}
-      </div>
+      <BasketList basket={props.basket} onDeleteItemsFromBasket={props.onDeleteItemsFromBasket}/>
       <span className='Basket-count'>
         Итого: {props.totalCost > 0 ? formatPrice(props.totalCost) : formatPrice(0)}
       </span>
@@ -30,7 +21,7 @@ function Basket(props) {
 
 Basket.propTypes = {
   onCloseBasket: PropTypes.func,
-  onDeleteItemFromBasket: PropTypes.func,
+  onDeleteItemsFromBasket: PropTypes.func,
   basket: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -41,7 +32,7 @@ Basket.propTypes = {
 
 Basket.defaultProps = {
   onCloseBasket: () => { },
-  onDeleteItemFromBasket: () => { }
+  onDeleteItemsFromBasket: () => { }
 }
 
 export default React.memo(Basket);
