@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import BasketItem from "../basket-item";
+import BasketItem from '../basket-item';
 import './style.css';
 
 function BasketList(props){
