@@ -17,7 +17,7 @@ function PageLayout({children}) {
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node.isRequired
 }
 
 export default React.memo(PageLayout);

@@ -56,21 +56,23 @@ class Store {
    * Добавление записи по коду
    * @param code
    */
-  addItemToBasket(code) {
+  addItemToBasket(item) {
     this.setState({
       ...this.state,
-      basket: this.state.basket.some(item => item.code === code) 
-        ? this.state.basket.map(item => item.code === code ? {...item, count: item.count + 1} : item)
-        : [...this.state.basket, {...this.state.list.find(item => item.code === code), count: 1}],
-      totalCost: this.state.totalCost + this.state.list.find(item => item.code === code).price,
+      basket: this.state.basket.some(i => i.code === item.code)
+        ? this.state.basket.reduce((acc, cur) => {
+          return cur.code === item.code ? [...acc, { ...cur, count: cur.count + 1 }] : [...acc, cur];
+        }, [])
+        : [...this.state.basket, { ...item, count: 1 }],
+      totalCost: this.state.totalCost + item.price,
       totalCount: this.state.totalCount + 1
     })
   };
-  
-    /**
-   * Удаление записи по коду
-   * @param code
-   */
+
+  /**
+ * Удаление записи по коду
+ * @param code
+ */
   deleteItemsFromBasket(code) {
     this.setState({
       ...this.state,

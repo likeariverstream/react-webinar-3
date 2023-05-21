@@ -4,8 +4,8 @@ import './style.css';
 import {formatPrice} from '../../utils';
 function Item(props){
   const callbacks = {
-    onAddToBasket: (e) => {
-      props.onAddToBasket(props.item.code);
+    onAddToBasket: () => {
+      props.onAddToBasket(props.item);
     }
   }
 
@@ -33,11 +33,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  onAddToBasket: PropTypes.func,
+  onAddToBasket: PropTypes.func.isRequired,
 };
-
-Item.defaultProps = {
-  onAddToBasket: () => {},
-}
 
 export default React.memo(Item);

@@ -21,12 +21,8 @@ function App({ store }) {
   };
 
   const callbacks = {
-    onAddItemToBasket: useCallback((code) => {
-      store.addItemToBasket(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddItemToBasket: useCallback((item) => {
+      store.addItemToBasket(item);
     }, [store]),
 
     onOpenBasket: useCallback(() => {

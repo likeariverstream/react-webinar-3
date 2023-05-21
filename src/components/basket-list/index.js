@@ -19,17 +19,12 @@ function BasketList(props){
 }
 
 BasketList.propTypes = {
-  onDeleteItemsFromBasket: PropTypes.func,
+  onDeleteItemsFromBasket: PropTypes.func.isRequired,
   basket: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number
-  }).isRequired),
+  })).isRequired,
 };
-
-BasketList.defaultProps = {
-  onCloseBasket: () => { },
-  onDeleteItemsFromBasket: () => { }
-}
 
 export default React.memo(BasketList);

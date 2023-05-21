@@ -36,11 +36,7 @@ BasketItem.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
-  onDeleteItemsFromBasket: PropTypes.func,
+  onDeleteItemsFromBasket: PropTypes.func.isRequired,
 };
-
-BasketItem.defaultProps = {
-  onDeleteItemsFromBasket: () => {},
-}
 
 export default React.memo(BasketItem);

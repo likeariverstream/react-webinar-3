@@ -19,11 +19,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onAddToBasket: PropTypes.func,
+  onAddToBasket: PropTypes.func.isRequired,
 };
-
-List.defaultProps = {
-  onAddToBasket: () => {},
-}
 
 export default React.memo(List);

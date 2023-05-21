@@ -20,18 +20,14 @@ function Controls(props) {
 } 
 
 Controls.propTypes = {
-  onOpenBasket: PropTypes.func,
+  onOpenBasket: PropTypes.func.isRequired,
   basket: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired),
-  totalCost: PropTypes.number,
-  totalCount: PropTypes.number
+  totalCost: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired
 };
-
-Controls.defaultProps = {
-  onOpenBasket: () => {}
-}
 
 export default React.memo(Controls);

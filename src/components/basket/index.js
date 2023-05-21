@@ -20,19 +20,14 @@ function Basket(props) {
 }
 
 Basket.propTypes = {
-  onCloseBasket: PropTypes.func,
-  onDeleteItemsFromBasket: PropTypes.func,
+  onCloseBasket: PropTypes.func.isRequired,
+  onDeleteItemsFromBasket: PropTypes.func.isRequired,
   basket: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired),
-  totalCost: PropTypes.number
+  totalCost: PropTypes.number.isRequired
 };
-
-Basket.defaultProps = {
-  onCloseBasket: () => { },
-  onDeleteItemsFromBasket: () => { }
-}
 
 export default React.memo(Basket);
