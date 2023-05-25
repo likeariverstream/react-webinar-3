@@ -28,8 +28,8 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translations={select.translations}/>
-    }, [callbacks.removeFromBasket]),
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} translations={select.translations}/>
+    }, [callbacks.removeFromBasket, callbacks.closeModal, select.translations]),
   };
 
   return (
