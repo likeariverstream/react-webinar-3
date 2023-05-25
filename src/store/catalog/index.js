@@ -22,6 +22,18 @@ class Catalog extends StoreModule {
        list: json.result.items
     }, 'Загружены товары из АПИ');
   }
+
+  async getPagesCount() {
+    const response = await fetch('/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count')
+    const json = await response.json();
+    const productsOnPage = 10;
+    const pagesCount = Math.ceil(Number(json.result.count) / productsOnPage);
+    this.setState({
+      ...this.getState(),
+      productsCount: json.result.count,
+      pagesCount,
+    }, 'Загружено общее количество товаров');
+  }
 }
 
 export default Catalog;
