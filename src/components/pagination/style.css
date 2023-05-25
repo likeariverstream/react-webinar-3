@@ -1,0 +1,45 @@
+.Pagination {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2px;
+  padding: 20px 20px 20px 10px;
+}
+
+.Pagination-link{
+  display: flex;
+  align-items: center;
+  min-width: 20px;
+  min-height: 20px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.Pagination-link:hover{
+  background: #E1E1E1;
+}
+
+.Pagination-item{
+  display: flex;
+  display: flex;
+  align-items: center;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.Pagination-item_active{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Pagination-item_active>a{
+  color: #FFFFFF;
+}
+
+.Pagination-item_active{
+  background: #0087E9;
+  color: #FFFFFF;
+}

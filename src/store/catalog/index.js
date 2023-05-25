@@ -10,7 +10,8 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      catalog: []
     }
   }
 
@@ -34,6 +35,16 @@ class Catalog extends StoreModule {
       pagesCount,
     }, 'Загружено общее количество товаров');
   }
+
+  async loadRequiredQuantityProduct(limit, skip) {
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`)
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      catalog: json.result.items
+    }, 'Загружено необходимое количество товаров')
+  }
+
 }
 
 export default Catalog;

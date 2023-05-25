@@ -17,4 +17,6 @@
 
 .BasketTool-link{
   margin: 0 auto 0 0;
+  text-decoration: none;
+  color: #000000;
 }
