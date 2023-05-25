@@ -1,0 +1,9 @@
+.ProductCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ProductCard-description {
+  
+}

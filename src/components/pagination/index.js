@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import {getPageLinks} from '../../utils';
+import PropTypes from "prop-types";
 
 function Pagination({ totalPages, currentPage = 1 }) {
   const cn = bem('Pagination');
@@ -20,5 +21,9 @@ function Pagination({ totalPages, currentPage = 1 }) {
     </nav>
   );
 };
+
+Pagination.propTypes = {
+  totalPages: PropTypes.number
+}
 
 export default memo(Pagination)

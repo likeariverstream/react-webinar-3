@@ -4,11 +4,11 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
+import ProductCard from "../../components/product-card";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination"
 import { Route, Routes, useNavigate, useParams, useLocation } from 'react-router';
-import { Outlet } from 'react-router';
 function Main() {
   const { pageId } = useParams()
   const location = useLocation()
@@ -29,7 +29,6 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
-    catalog: state.catalog.catalog,
     amount: state.basket.amount,
     sum: state.basket.sum,
     pagesCount: state.catalog.pagesCount,
@@ -41,11 +40,12 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     navigateToPage: useCallback(() => navigate(`/${pageId}`), [store]),
+    navigateToProduct: useCallback(() => navigate(`/${productId}`), [store]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} />
+      return <Item item={item} onAdd={callbacks.addToBasket}/>
     }, [callbacks.addToBasket]),
   };
 
@@ -55,12 +55,12 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} />
       <Routes location={location}>
-        <Route path="/:pageId" element={<List list={select.catalog} renderItem={renders.item} />} />
+        <Route path="/:pageId" element={<List list={select.list} renderItem={renders.item} />} />
+        <Route path="/product/:productId" element={<ProductCard />} />
         <Route path="/" element={<List list={select.list} renderItem={renders.item} />} />
       </Routes>
       <Pagination totalPages={select.pagesCount} currentPage={currentPage} handlePagination={callbacks.navigateToPage} />
     </PageLayout>
-
   );
 }
 

@@ -32,7 +32,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       productsCount: json.result.count,
-      pagesCount,
+      pagesCount
     }, 'Загружено общее количество товаров');
   }
 
@@ -41,10 +41,19 @@ class Catalog extends StoreModule {
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      catalog: json.result.items
+      list: json.result.items
     }, 'Загружено необходимое количество товаров')
   }
-
+  
+  async loadCurrentProduct(id) {
+    const response = await fetch(`api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      currentProduct: json.result
+    }, 'Загружен текущий товар')
+    
+  }
 }
 
 export default Catalog;
