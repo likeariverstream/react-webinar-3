@@ -19,8 +19,8 @@ function ItemBasket(props) {
       <Link to={`/product/${props.item._id}`}className={cn('title')}>{props.item.title}</Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.translations.units}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.translations.delete}</button></div>
       </div>
     </div>
   )

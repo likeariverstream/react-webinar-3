@@ -13,11 +13,11 @@ function ProductCard(props) {
   return(
     <section className={cn()}>
       <p className={cn('description')}>{props.currentProduct.description}</p>
-      <p className={cn('item')}>Страна производитель: <span>{props.currentProduct.madeIn.title} ({props.currentProduct.madeIn.code})</span></p>
-      <p className={cn('item')}>Категория: <span>{props.currentProduct.category.title}</span></p>
-      <p className={cn('item')}>Год выпуска: <span>{props.currentProduct.edition}</span></p>
-      <p className={cn('price')}>Цена: {`${numberFormat(props.currentProduct.price)} ₽`}</p>
-      <button className={cn('button')} onClick={callbacks.onAdd}>Добавить</button>
+      <p className={cn('item')}>{props.translations.countryOfOrigin}: <span>{props.currentProduct.madeIn.title} ({props.currentProduct.madeIn.code})</span></p>
+      <p className={cn('item')}>{props.translations.category}: <span>{props.currentProduct.category.title}</span></p>
+      <p className={cn('item')}>{props.translations.yearOfRelease}: <span>{props.currentProduct.edition}</span></p>
+      <p className={cn('price')}>{props.translations.price}: {`${numberFormat(props.currentProduct.price)} ₽`}</p>
+      <button className={cn('button')} onClick={callbacks.onAdd}>{props.translations.add}</button>
     </section>
   )
 }
@@ -31,6 +31,13 @@ ProductCard.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     edition: PropTypes.number
+  }).isRequired,
+  translations: PropTypes.shape({
+    price: PropTypes.string,
+    countryOfOrigin: PropTypes.string,
+    yearOfRelease: PropTypes.string,
+    category: PropTypes.string,
+    add: PropTypes.string,
   }).isRequired,
   onAdd: PropTypes.func.isRequired
 };

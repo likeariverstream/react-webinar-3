@@ -6,6 +6,7 @@ import BasketTool from "../../components/basket-tool";
 import ProductCard from "../../components/product-card";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import translations from "../../translations/en";
 function Product() {
   const {productId} = useParams();
   const location = useLocation();
@@ -24,6 +25,8 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     currentProduct: state.catalog.currentProduct,
+    translations: state.language.translations,
+    currentLanguage: state.language.current
   }));
 
   const callbacks = {
@@ -31,6 +34,8 @@ function Product() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    onChangeEnLanguage: useCallback(() => store.actions.language.changeEn(), [store]),
+    onChangeRuLanguage: useCallback(() => store.actions.language.changeRu(), [store])
   }
 
   if (!select.currentProduct) {
@@ -39,10 +44,12 @@ function Product() {
 
   return(
     select.currentProduct && <PageLayout>
-    <Head title={select.currentProduct.title} />
+    <Head title={select.currentProduct.title} translations={select.translations} onChangeEnLanguage={callbacks.onChangeEnLanguage}
+      onChangeRuLanguage={callbacks.onChangeRuLanguage}
+      currentLanguage={select.currentLanguage}/>
     <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-      sum={select.sum} />
-    <ProductCard currentProduct={select.currentProduct} onAdd={callbacks.addToBasket}/>
+      sum={select.sum} translations={select.translations}/>
+    <ProductCard currentProduct={select.currentProduct} onAdd={callbacks.addToBasket} translations={select.translations}/>
   </PageLayout>
   )
 }

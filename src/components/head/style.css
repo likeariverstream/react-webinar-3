@@ -1,9 +1,14 @@
 .Head {
   height: 80px;
   background: #f5f5f5;
+  display: flex;
 }
 
 .Head h1 {
   margin: 0;
   padding: 20px 20px 10px;
+}
+
+.Head button {
+  margin: 30px 20px 30px auto;
 }

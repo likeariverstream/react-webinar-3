@@ -23,7 +23,7 @@ function Pagination({ totalPages, currentPage = 1 }) {
 };
 
 Pagination.propTypes = {
-  totalPages: PropTypes.number
+  totalPages: PropTypes.number.isRequired
 }
 
 export default memo(Pagination)

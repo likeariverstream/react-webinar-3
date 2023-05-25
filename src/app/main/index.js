@@ -9,6 +9,7 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination"
 import { Route, Routes, useNavigate, useParams, useLocation } from 'react-router';
+import translations from '../../translations/ru';
 function Main() {
   const { pageId } = useParams()
   const location = useLocation()
@@ -32,6 +33,8 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     pagesCount: state.catalog.pagesCount,
+    translations: state.language.translations,
+    currentLanguage: state.language.current
   }));
 
   const callbacks = {
@@ -39,24 +42,26 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    navigateToPage: useCallback(() => navigate(`/${pageId}`), [store]),
-    navigateToProduct: useCallback(() => navigate(`/${productId}`), [store]),
+    onChangeEnLanguage: useCallback(() => store.actions.language.changeEn(), [store]),
+    onChangeRuLanguage: useCallback(() => store.actions.language.changeRu(), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
+      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations}/>
+    }, [callbacks.addToBasket, select.translations]),
   };
 
   return (
     <PageLayout>
-      <Head title='Магазин' />
+      <Head title={select.translations.shop} onChangeEnLanguage={callbacks.onChangeEnLanguage}
+      onChangeRuLanguage={callbacks.onChangeRuLanguage}
+      translations={select.translations}
+      currentLanguage={select.currentLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} />
-      <Routes location={location}>
+        sum={select.sum} translations={select.translations}/>
+      <Routes>
         <Route path="/:pageId" element={<List list={select.list} renderItem={renders.item} />} />
-        <Route path="/product/:productId" element={<ProductCard />} />
         <Route path="/" element={<List list={select.list} renderItem={renders.item} />} />
       </Routes>
       <Pagination totalPages={select.pagesCount} currentPage={currentPage} handlePagination={callbacks.navigateToPage} />
