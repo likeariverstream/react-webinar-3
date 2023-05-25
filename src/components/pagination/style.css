@@ -8,31 +8,21 @@
 }
 
 .Pagination-link{
-  display: flex;
-  align-items: center;
-  min-width: 20px;
-  min-height: 20px;
+  display: inline-block;
   text-decoration: none;
   color: #000000;
+  min-width: 20px;
+  min-height: 20px;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.Pagination-link:hover{
+.Pagination-item:hover{
   background: #E1E1E1;
 }
 
 .Pagination-item{
-  display: flex;
-  display: flex;
-  align-items: center;
-  min-width: 20px;
-  min-height: 20px;
-}
-
-.Pagination-item_active{
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 20px
 }
 
 .Pagination-item_active>a{

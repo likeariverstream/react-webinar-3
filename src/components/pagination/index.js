@@ -10,7 +10,7 @@ function Pagination({ totalPages, currentPage = 1 }) {
   return (
     <nav className={cn()}>
       {getPageLinks(totalPages, currentPage).map((page, index) => (
-        <li key={index} className={cn(`item${page === currentPage ? '_active' : ''}`)}>
+        <li key={index} className={`${cn('item')} ${page === currentPage && `${cn('item_active')}`}`}>
           {page === '...' ? (
             <span className={cn('span')}>...</span>
           ) : (

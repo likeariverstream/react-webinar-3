@@ -43,22 +43,26 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 export function getPageLinks(totalPages, currentPage = 1) {
   const pages = [...Array(totalPages)].map((_, i) => i + 1);
   const links = [];
-
+  
   if (totalPages <= 5) {
-    // если всего 5 страниц или меньше, отображаем все страницы
     links.push(...pages);
-  } else if (currentPage <= 3) {
-    // если текущая страница ближе к началу, отображаем первые 5 страниц
-    links.push(...pages.slice(0, 5));
+  } else if (currentPage <= 2) {
+    links.push(...pages.slice(0, 3));
     links.push('...');
     links.push(totalPages);
-  } else if (currentPage >= totalPages - 2) {
-    // если текущая страница ближе к концу, отображаем последние 5 страниц
+  } else if (currentPage >= totalPages - 1) {
     links.push(1);
     links.push('...');
-    links.push(...pages.slice(totalPages - 5));
+    links.push(...pages.slice(totalPages - 3));
+  } else if (currentPage === 3) {
+    links.push(...pages.slice(0, 4));
+    links.push('...');
+    links.push(totalPages);
+  } else if (currentPage === totalPages - 2) {
+    links.push(1);
+    links.push('...');
+    links.push(...pages.slice(totalPages - 4));
   } else {
-    // иначе отображаем текущую страницу и две соседние с ней, а также многоточия и первую/последнюю страницы
     links.push(1);
     links.push('...');
     links.push(currentPage - 1);
@@ -69,5 +73,4 @@ export function getPageLinks(totalPages, currentPage = 1) {
   }
   
   return links;
-
 };
