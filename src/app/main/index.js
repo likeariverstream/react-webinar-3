@@ -1,15 +1,15 @@
 import { memo, useCallback, useEffect } from 'react';
-import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
-import ProductCard from "../../components/product-card";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
-import Pagination from "../../components/pagination"
-import { Route, Routes, useNavigate, useParams, useLocation } from 'react-router';
-import translations from '../../translations/ru';
+import Item from '../../components/item';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import BasketTool from '../../components/basket-tool';
+import List from '../../components/list';
+import ProductCard from '../../components/product-card';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+import Pagination from '../../components/pagination'
+import {Route, Routes, useNavigate, useParams, useLocation} from 'react-router';
+
 function Main() {
   const { pageId } = useParams()
   const location = useLocation()
@@ -22,7 +22,7 @@ function Main() {
   useEffect(() => {
     store.actions.catalog.getPagesCount();
     if (pageId) {
-      store.actions.catalog.loadRequiredQuantityProduct(limit, skip, currentPage)
+      store.actions.catalog.loadRequiredQuantityProduct(limit, skip, currentPage);
     } else {
       store.actions.catalog.load();
     }
@@ -54,15 +54,17 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={select.translations.shop} onChangeEnLanguage={callbacks.onChangeEnLanguage}
+      <Head 
+      title={select.translations.shop}
+      onChangeEnLanguage={callbacks.onChangeEnLanguage}
       onChangeRuLanguage={callbacks.onChangeRuLanguage}
       translations={select.translations}
       currentLanguage={select.currentLanguage}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} translations={select.translations}/>
       <Routes>
-        <Route path="/:pageId" element={<List list={select.list} renderItem={renders.item} />} />
-        <Route path="/" element={<List list={select.list} renderItem={renders.item} />} />
+        <Route path='/:pageId' element={<List list={select.list} renderItem={renders.item} />} />
+        <Route path='/' element={<List list={select.list} renderItem={renders.item} />} />
       </Routes>
       <Pagination totalPages={select.pagesCount} currentPage={currentPage} handlePagination={callbacks.navigateToPage} />
     </PageLayout>

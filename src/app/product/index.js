@@ -1,23 +1,20 @@
-import React, {useEffect, memo, useCallback} from "react";
-import { useLocation, useParams } from "react-router";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import BasketTool from "../../components/basket-tool";
-import ProductCard from "../../components/product-card";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
-import translations from "../../translations/en";
+import React, {useEffect, memo, useCallback} from 'react';
+import {useLocation, useParams} from 'react-router';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import BasketTool from '../../components/basket-tool';
+import ProductCard from '../../components/product-card';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
+
 function Product() {
   const {productId} = useParams();
   const location = useLocation();
   const store = useStore();
   useEffect(() => {
       if(productId) {
-        store.actions.catalog.loadCurrentProduct(productId)
+        store.actions.catalog.loadCurrentProduct(productId);
       }
-      console.log(select.catalog)
-      // console.log(select.catalog.currentProduct)
-      // console.log(select.catalog.currentProduct.title)
   }, [location]);
 
   const select = useSelector(state => ({
@@ -44,7 +41,10 @@ function Product() {
 
   return(
     select.currentProduct && <PageLayout>
-    <Head title={select.currentProduct.title} translations={select.translations} onChangeEnLanguage={callbacks.onChangeEnLanguage}
+    <Head 
+      title={select.currentProduct.title}
+      translations={select.translations}
+      onChangeEnLanguage={callbacks.onChangeEnLanguage}
       onChangeRuLanguage={callbacks.onChangeRuLanguage}
       currentLanguage={select.currentLanguage}/>
     <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}

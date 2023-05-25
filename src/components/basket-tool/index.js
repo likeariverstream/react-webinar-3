@@ -1,9 +1,9 @@
-import {memo} from "react";
+import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import {numberFormat, plural} from "../../utils";
+import {numberFormat, plural} from '../../utils';
 import './style.css';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 function BasketTool({sum, amount, onOpen, translations}) {
   const cn = bem('BasketTool');
@@ -13,7 +13,9 @@ function BasketTool({sum, amount, onOpen, translations}) {
       <span className={cn('label')}>{translations.inTheCart}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, {one: translations.oneProduct, few: translations.fewProduct, many: translations.manyPproducts})} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${plural(amount, {
+            one: translations.oneProduct, few: translations.fewProduct, many: translations.manyPproducts
+          })} / ${numberFormat(sum)} ₽`
           : `${translations.isEmpty}`
         }
       </span>

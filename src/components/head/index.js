@@ -1,5 +1,5 @@
-import { memo } from "react";
-import PropTypes from "prop-types";
+import {memo} from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
 function Head({ title, translations, onChangeEnLanguage, onChangeRuLanguage, currentLanguage }) {
@@ -7,9 +7,9 @@ function Head({ title, translations, onChangeEnLanguage, onChangeRuLanguage, cur
   const callbacks = {
     changeLanguage: () => {
       if (currentLanguage === 'ru') {
-        onChangeEnLanguage()
+        onChangeEnLanguage();
       } else {
-        onChangeRuLanguage()
+        onChangeRuLanguage();
       }
     }
   }

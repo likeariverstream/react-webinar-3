@@ -13,7 +13,9 @@ function ProductCard(props) {
   return(
     <section className={cn()}>
       <p className={cn('description')}>{props.currentProduct.description}</p>
-      <p className={cn('item')}>{props.translations.countryOfOrigin}: <span>{props.currentProduct.madeIn.title} ({props.currentProduct.madeIn.code})</span></p>
+      <p className={cn('item')}>{props.translations.countryOfOrigin}: <span>
+        {props.currentProduct.madeIn.title} ({props.currentProduct.madeIn.code})
+      </span></p>
       <p className={cn('item')}>{props.translations.category}: <span>{props.currentProduct.category.title}</span></p>
       <p className={cn('item')}>{props.translations.yearOfRelease}: <span>{props.currentProduct.edition}</span></p>
       <p className={cn('price')}>{props.translations.price}: {`${numberFormat(props.currentProduct.price)} ₽`}</p>

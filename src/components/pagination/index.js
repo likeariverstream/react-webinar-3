@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React, {memo} from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import {getPageLinks} from '../../utils';
 import PropTypes from "prop-types";
 
-function Pagination({ totalPages, currentPage = 1 }) {
+function Pagination({totalPages, currentPage = 1}) {
   const cn = bem('Pagination');
   return (
     <nav className={cn()}>
