@@ -11,14 +11,14 @@
 }
 
 .ItemBasket-title {
-  display: block;
+  margin: 0;
   margin-right: auto;
   padding: 20px 10px;
-  text-decoration: underline;
 }
 
 .ItemBasket-title:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .ItemBasket-right {
