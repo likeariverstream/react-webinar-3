@@ -11,11 +11,34 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      catalog: []
+      pagesCount: null,
+      productsLimit: 10,
+      currentPage: 1,
+      skip: 10
     }
   }
 
-  async loadRequiredQuantityProduct(limit, skip) {
+  getCurrentPage(pageId = 1) {
+    const currentPage = Number(pageId);
+    this.setState({
+      ...this.getState(),
+      currentPage
+    }, 'Получена текущая страница')
+  }
+  
+  setSkip(pageId = 1) {
+    const currentPage = Number(pageId);
+    const productsLimit = this.getState().productsLimit;
+    const skip = currentPage * productsLimit - productsLimit;
+    this.setState({
+      ...this.getState(),
+      skip
+    }, `Пропуск установлен на ${skip}`)
+  }
+
+  async loadRequiredQuantityProduct() {
+    const limit = this.getState().productsLimit;
+    const skip = this.getState().skip;
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`)
     const json = await response.json();
     this.setState({
@@ -27,11 +50,10 @@ class Catalog extends StoreModule {
   async getPagesCount() {
     const response = await fetch('/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count')
     const json = await response.json();
-    const productsOnPage = 10;
-    const pagesCount = Math.ceil(Number(json.result.count) / productsOnPage);
+    const productsLimit = this.getState().productsLimit;
+    const pagesCount = Math.ceil(Number(json.result.count) / productsLimit);
     this.setState({
       ...this.getState(),
-      productsCount: json.result.count,
       pagesCount
     }, 'Загружено общее количество товаров');
   }
@@ -42,7 +64,7 @@ class Catalog extends StoreModule {
     this.setState({
       ...this.getState(),
       currentProduct: json.result
-    }, 'Загружен текущий товар')
+    }, 'Загружен текущий товар');
     
   }
 }

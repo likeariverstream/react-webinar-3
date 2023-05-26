@@ -7,30 +7,30 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination'
-import { Route, Routes, useNavigate, useParams, useLocation } from 'react-router';
+import {Route, Routes, useParams, useLocation} from 'react-router';
 
 function Main() {
-  const { pageId } = useParams()
-  const location = useLocation()
-  const currentPage = pageId ? Number(pageId) : 1
-  const navigate = useNavigate()
+  const {pageId} = useParams();
+  const location = useLocation();
   const store = useStore();
-  const limit = 10;
-  const skip = currentPage * 10 - limit;
-
-  useEffect(() => {
-    store.actions.catalog.getPagesCount();
-    store.actions.catalog.loadRequiredQuantityProduct(limit, skip, currentPage);
-  }, [location]);
-
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
     pagesCount: state.catalog.pagesCount,
+    productsLimit: state.catalog.productsLimit,
+    currentPage: state.catalog.currentPage,
+    skip: state.catalog.skip,
     translations: state.language.translations,
     currentLanguage: state.language.current
   }));
+  
+  useEffect(() => {
+    store.actions.catalog.getPagesCount();
+    store.actions.catalog.getCurrentPage(pageId);
+    store.actions.catalog.setSkip(pageId);
+    store.actions.catalog.loadRequiredQuantityProduct();
+  }, [location, pageId]);
 
   const callbacks = {
     // Добавление в корзину
@@ -56,16 +56,16 @@ function Main() {
         translations={select.translations}
         currentLanguage={select.currentLanguage} />
       <BasketTool 
-      onOpen={callbacks.openModalBasket} 
-      amount={select.amount}
-      sum={select.sum} translations={select.translations}
-      link='/'
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount}
+        sum={select.sum} translations={select.translations}
+        link='/'
         />
       <Routes>
         <Route path='/:pageId' element={<List list={select.list} renderItem={renders.item} />} />
         <Route path='/' element={<List list={select.list} renderItem={renders.item} />} />
       </Routes>
-      <Pagination totalPages={select.pagesCount} currentPage={currentPage} handlePagination={callbacks.navigateToPage} />
+      <Pagination totalPages={select.pagesCount} currentPage={select.currentPage} handlePagination={callbacks.navigateToPage} />
     </PageLayout>
   );
 }

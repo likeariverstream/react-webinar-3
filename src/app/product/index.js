@@ -47,12 +47,15 @@ function Product() {
       onChangeEnLanguage={callbacks.onChangeEnLanguage}
       onChangeRuLanguage={callbacks.onChangeRuLanguage}
       currentLanguage={select.currentLanguage}/>
-    <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-      sum={select.sum} translations={select.translations}/>
+    <BasketTool 
+      onOpen={callbacks.openModalBasket}
+      amount={select.amount}
+      sum={select.sum} 
+      translations={select.translations}
+      link='/'/>
     <ProductCard currentProduct={select.currentProduct} onAdd={callbacks.addToBasket} translations={select.translations}/>
   </PageLayout>
   )
 }
-
 
 export default memo(Product);
