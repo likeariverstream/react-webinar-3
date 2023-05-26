@@ -15,8 +15,8 @@ class Catalog extends StoreModule {
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async loadRequiredQuantityProduct(limit, skip) {
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`)
     const json = await response.json();
     this.setState({
        ...this.getState(),
@@ -34,15 +34,6 @@ class Catalog extends StoreModule {
       productsCount: json.result.count,
       pagesCount
     }, 'Загружено общее количество товаров');
-  }
-
-  async loadRequiredQuantityProduct(limit, skip) {
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`)
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      list: json.result.items
-    }, 'Загружено необходимое количество товаров')
   }
   
   async loadCurrentProduct(id) {

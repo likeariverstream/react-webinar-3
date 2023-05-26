@@ -16,7 +16,8 @@ const translations = {
     yearOfRelease: 'Год выпуска',
     category: 'Категория',
     total: 'Итого',
-    changeLanguage: 'Изменить язык',
+    ruLanguage: 'Русский',
+    enLanguage: 'Английский',
     units: 'шт'
 }
 

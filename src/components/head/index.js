@@ -1,23 +1,19 @@
-import {memo} from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
 function Head({ title, translations, onChangeEnLanguage, onChangeRuLanguage, currentLanguage }) {
 
   const callbacks = {
-    changeLanguage: () => {
-      if (currentLanguage === 'ru') {
-        onChangeEnLanguage();
-      } else {
-        onChangeRuLanguage();
-      }
-    }
+    changeRu: () => onChangeRuLanguage(),
+    changeEn: () => onChangeEnLanguage()
   }
 
   return (
     <div className='Head'>
       <h1>{title}</h1>
-      <button onClick={callbacks.changeLanguage}>{translations.changeLanguage}</button>
+      <button onClick={callbacks.changeRu}>{translations.ruLanguage}</button>
+      <button onClick={callbacks.changeEn}>{translations.enLanguage}</button>
     </div>
   )
 }
@@ -27,7 +23,8 @@ Head.propTypes = {
   onChangeEnLanguage: PropTypes.func.isRequired,
   onChangeRuLanguage: PropTypes.func.isRequired,
   translations: PropTypes.shape({
-    change: PropTypes.string
+    ruLanguage: PropTypes.string,
+    enLanguage: PropTypes.string
   }),
   currentLanguage: PropTypes.string.isRequired
 };
