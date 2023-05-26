@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from '../../utils';
 import './style.css';
-import {Link} from 'react-router-dom';
+import Navbar from '../navbar'
 
-function BasketTool({sum, amount, onOpen, translations}) {
+function BasketTool({sum, amount, onOpen, translations, link}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <Link to='/' className={cn('link')}>{translations.main}</Link>
+      <Navbar link={link} translations={translations}/>
       <span className={cn('label')}>{translations.inTheCart}:</span>
       <span className={cn('total')}>
         {amount
@@ -36,7 +36,8 @@ BasketTool.propTypes = {
     manyPproducts: PropTypes.string,
     isEmpty: PropTypes.string,
     goTo: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  link: PropTypes.string.isRequired
 };
 
 BasketTool.defaultProps = {

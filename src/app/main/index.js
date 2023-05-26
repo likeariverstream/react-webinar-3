@@ -55,8 +55,12 @@ function Main() {
         onChangeRuLanguage={callbacks.onChangeRuLanguage}
         translations={select.translations}
         currentLanguage={select.currentLanguage} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} translations={select.translations} />
+      <BasketTool 
+      onOpen={callbacks.openModalBasket} 
+      amount={select.amount}
+      sum={select.sum} translations={select.translations}
+      link='/'
+        />
       <Routes>
         <Route path='/:pageId' element={<List list={select.list} renderItem={renders.item} />} />
         <Route path='/' element={<List list={select.list} renderItem={renders.item} />} />
