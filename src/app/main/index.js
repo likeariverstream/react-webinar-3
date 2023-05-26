@@ -43,7 +43,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} />
+      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} link={`/product/${item._id}`}/>
     }, [callbacks.addToBasket, select.translations]),
   };
 

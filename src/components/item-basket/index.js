@@ -13,7 +13,7 @@ function ItemBasket(props) {
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
     goToProductPage: (e) => {
-      navigate(`/product/${props.item._id}`);
+      navigate(props.link);
       props.onClose();
     }
   };
@@ -37,8 +37,9 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
-  onClose: propTypes.func,
-  onRemove: propTypes.func,
+  onClose: PropTypes.func,
+  onRemove: PropTypes.func,
+  link: PropTypes.string
 }
 
 ItemBasket.defaultProps = {
