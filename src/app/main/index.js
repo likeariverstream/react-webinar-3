@@ -8,7 +8,7 @@ import ProductCard from '../../components/product-card';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination'
-import {Route, Routes, useNavigate, useParams, useLocation} from 'react-router';
+import { Route, Routes, useNavigate, useParams, useLocation } from 'react-router';
 
 function Main() {
   const { pageId } = useParams()
@@ -21,11 +21,7 @@ function Main() {
 
   useEffect(() => {
     store.actions.catalog.getPagesCount();
-    if (pageId) {
-      store.actions.catalog.loadRequiredQuantityProduct(limit, skip, currentPage);
-    } else {
-      store.actions.catalog.load();
-    }
+    store.actions.catalog.loadRequiredQuantityProduct(limit, skip, currentPage);
   }, [location]);
 
   const select = useSelector(state => ({
@@ -48,20 +44,20 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} />
     }, [callbacks.addToBasket, select.translations]),
   };
 
   return (
     <PageLayout>
-      <Head 
-      title={select.translations.shop}
-      onChangeEnLanguage={callbacks.onChangeEnLanguage}
-      onChangeRuLanguage={callbacks.onChangeRuLanguage}
-      translations={select.translations}
-      currentLanguage={select.currentLanguage}/>
+      <Head
+        title={select.translations.shop}
+        onChangeEnLanguage={callbacks.onChangeEnLanguage}
+        onChangeRuLanguage={callbacks.onChangeRuLanguage}
+        translations={select.translations}
+        currentLanguage={select.currentLanguage} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} translations={select.translations}/>
+        sum={select.sum} translations={select.translations} />
       <Routes>
         <Route path='/:pageId' element={<List list={select.list} renderItem={renders.item} />} />
         <Route path='/' element={<List list={select.list} renderItem={renders.item} />} />
