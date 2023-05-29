@@ -65,10 +65,7 @@ function Main() {
           sum={select.sum} translations={select.translations}
         />
       </PanelLayout>
-      <Routes>
-        <Route path='/:pageId' element={<List list={select.list} renderItem={renders.item} />} />
-        <Route path='/' element={<List list={select.list} renderItem={renders.item} />} />
-      </Routes>
+      <List list={select.list} renderItem={renders.item} />
       <Pagination totalPages={select.pagesCount} currentPage={select.currentPage} handlePagination={callbacks.navigateToPage} />
     </PageLayout>
   );
