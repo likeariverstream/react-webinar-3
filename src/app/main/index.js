@@ -9,7 +9,7 @@ import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination'
-import { Route, Routes, useParams, useLocation } from 'react-router';
+import {useParams, useLocation} from 'react-router';
 
 function Main() {
   const { pageId } = useParams();
@@ -45,7 +45,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} link={`/product/${item._id}`} />
+      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} link={`/articles/${item._id}`} />
     }, [callbacks.addToBasket, select.translations]),
   };
 
