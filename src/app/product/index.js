@@ -1,4 +1,4 @@
-import React, {useEffect, memo, useCallback} from 'react';
+import React, {useEffect, memo, useCallback, useState} from 'react';
 import {useLocation, useParams} from 'react-router';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -8,14 +8,17 @@ import PanelLayout from '../../components/panel-layout';
 import ProductCard from '../../components/product-card';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import Spinner from '../../components/spinner';
 
 function Product() {
   const {productId} = useParams();
   const location = useLocation();
   const store = useStore();
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
       if(productId) {
-        store.actions.product.loadCurrentProduct(productId);
+        setIsLoading(true)
+        store.actions.product.loadCurrentProduct(productId).then(() => setIsLoading(false));
       }
   }, [location]);
 
@@ -39,6 +42,10 @@ function Product() {
 
   if (!select.currentProduct) {
     return null
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return(

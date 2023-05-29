@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Navbar from '../../components/navbar';
@@ -10,11 +10,13 @@ import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination'
 import {useParams, useLocation} from 'react-router';
+import Spinner from '../../components/spinner';
 
 function Main() {
   const { pageId } = useParams();
   const location = useLocation();
   const store = useStore();
+  const [isLoading, setIsLoading] = useState(false)
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
@@ -28,10 +30,14 @@ function Main() {
   }));
 
   useEffect(() => {
-    store.actions.catalog.getPagesCount();
+    setIsLoading(true)
+    store.actions.catalog.getPagesCount()
+      .then(() => setIsLoading(false));
     store.actions.catalog.getCurrentPage(pageId);
     store.actions.catalog.setSkip(pageId);
-    store.actions.catalog.loadRequiredQuantityProduct();
+    setIsLoading(true)
+    store.actions.catalog.loadRequiredQuantityProduct()
+      .then(() => setIsLoading(false));
   }, [location, pageId]);
 
   const callbacks = {
@@ -48,6 +54,10 @@ function Main() {
       return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} link={`/articles/${item._id}`} />
     }, [callbacks.addToBasket, select.translations]),
   };
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <PageLayout>
