@@ -57,16 +57,7 @@ class Catalog extends StoreModule {
       pagesCount
     }, 'Загружено общее количество товаров');
   }
-  
-  async loadCurrentProduct(id) {
-    const response = await fetch(`api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`)
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      currentProduct: json.result
-    }, 'Загружен текущий товар');
-    
-  }
+
 }
 
 export default Catalog;

@@ -15,7 +15,7 @@ function Product() {
   const store = useStore();
   useEffect(() => {
       if(productId) {
-        store.actions.catalog.loadCurrentProduct(productId);
+        store.actions.product.loadCurrentProduct(productId);
       }
   }, [location]);
 
@@ -23,7 +23,7 @@ function Product() {
     catalog: state.catalog,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    currentProduct: state.catalog.currentProduct,
+    currentProduct: state.product.currentProduct,
     translations: state.language.translations,
     currentLanguage: state.language.current
   }));
@@ -57,7 +57,7 @@ function Product() {
           sum={select.sum} translations={select.translations}
         />
       </PanelLayout>
-    <ProductCard currentProduct={select.currentProduct} onAdd={callbacks.addToBasket} translations={select.translations}/>
+      <ProductCard currentProduct={select.currentProduct} onAdd={callbacks.addToBasket} translations={select.translations}/>
   </PageLayout>
   )
 }
