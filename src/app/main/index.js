@@ -1,16 +1,18 @@
 import { memo, useCallback, useEffect } from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
+import Navbar from '../../components/navbar';
+import PanelLayout from '../../components/panel-layout';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import List from '../../components/list';
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination'
-import {Route, Routes, useParams, useLocation} from 'react-router';
+import { Route, Routes, useParams, useLocation } from 'react-router';
 
 function Main() {
-  const {pageId} = useParams();
+  const { pageId } = useParams();
   const location = useLocation();
   const store = useStore();
   const select = useSelector(state => ({
@@ -24,7 +26,7 @@ function Main() {
     translations: state.language.translations,
     currentLanguage: state.language.current
   }));
-  
+
   useEffect(() => {
     store.actions.catalog.getPagesCount();
     store.actions.catalog.getCurrentPage(pageId);
@@ -43,7 +45,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} link={`/product/${item._id}`}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} translations={select.translations} link={`/product/${item._id}`} />
     }, [callbacks.addToBasket, select.translations]),
   };
 
@@ -55,12 +57,14 @@ function Main() {
         onChangeRuLanguage={callbacks.onChangeRuLanguage}
         translations={select.translations}
         currentLanguage={select.currentLanguage} />
-      <BasketTool 
-        onOpen={callbacks.openModalBasket} 
-        amount={select.amount}
-        sum={select.sum} translations={select.translations}
-        link='/'
+      <PanelLayout>
+        <Navbar link='/' translations={select.translations}/>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum} translations={select.translations}
         />
+      </PanelLayout>
       <Routes>
         <Route path='/:pageId' element={<List list={select.list} renderItem={renders.item} />} />
         <Route path='/' element={<List list={select.list} renderItem={renders.item} />} />

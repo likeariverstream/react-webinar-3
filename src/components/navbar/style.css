@@ -1,5 +1,10 @@
+.Navbar{
+  display: flex;
+  flex-direction: column;
+}
 
 .Navbar-link{
-    margin: 0 auto 0 0;
-    color: #0087E9;
-  }
+  color: #0087E9;
+  line-height: 21px;
+  font-size: 18px;
+}
