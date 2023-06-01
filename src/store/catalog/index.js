@@ -12,11 +12,13 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
       count: 0,
       waiting: false
@@ -36,6 +38,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -81,7 +84,12 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
+      // 'search[category]': params.category
+    };
+
+    if (params.category) {
+      apiParams['search[category]'] = params.category;
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -93,6 +101,29 @@ class CatalogState extends StoreModule {
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }
+
+  async loadCategories() {
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    }, 'Ожидание загрузки категорий');
+
+    const response = await fetch('/api/v1/categories');
+    const json = await response.json();
+    const defaultCategory = [{
+      value: '',
+      title: 'Все'
+    }]
+    const categories = json.result.items.reduce((acc, cur) => {
+      return [...acc, {value: cur._id, title: cur.title}]
+    }, defaultCategory)
+    this.setState({
+      ...this.getState(),
+      categories,
+      waiting: false
+    }, 'Загружен список категорий из АПИ');
+  }
+
 }
 
 export default CatalogState;
