@@ -15,16 +15,15 @@ function Profile() {
   const { t } = useTranslate();
   const store = useStore();
 
-  // useInit(() => {
-  //   store.actions.user.getUserInfo();
-  // }, [], true);
-  // useEffect(() => {
-  //   store.actions.user.getUserInfo();
-  // }, [])
+  useInit(() => {
+    store.actions.user.getUserInfo();
+  }, [], true);
+
   const select = useSelector(state => ({
-    name: state.user.user.profile.name,
-    phone: state.user.user.profile.phone,
-    email: state.user.user.email
+    name: state.user.user.profile?.name,
+    phone: state.user.user.profile?.phone,
+    email: state.user.user.email,
+    waiting: state.user.waiting
   }))
   const options = {
     translations: {
@@ -33,13 +32,13 @@ function Profile() {
       phone: t('profile.phone'),
       email: t('profile.email'),
     },
-    name: select.name,
-    phone: select.phone,
-    email: select.email,
+    name: select?.name,
+    phone: select?.phone,
+    email: select?.email,
   }
 
   return (
-    select.name && <PageLayout>
+    <PageLayout>
       <ProfileHeader />
       <Head title={t('title')}>
         <LocaleSelect />

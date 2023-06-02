@@ -17,7 +17,7 @@ class UserState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: true
-      }, 'Ожидание данных пользователя');
+      }, 'Ожидание логина');
       const options = {
         method: 'POST',
         headers: {
@@ -27,15 +27,12 @@ class UserState extends StoreModule {
         },
         body: JSON.stringify({ ...data, remember: true })
       }
-      const response = await fetch('api/v1/users/sign', options)
-      const json = await response.json()
-      const user = json.result.user;
+      await fetch('api/v1/users/sign', options)
       this.setState({
         ...this.getState(),
         waiting: false,
-        user,
         isLogin: true
-      }, 'Загружены данные пользователя')
+      }, 'Логин пользователя')
     } catch (e) {
       this.setState({
         ...this.getState(),
