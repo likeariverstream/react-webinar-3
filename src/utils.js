@@ -48,8 +48,9 @@ export function createTree(flatArray) {
     const parent = node.parent;
     if (parent) {
       nodes[parent._id].children.push(nodes[node._id]);
+    } else {
+      tree.push(nodes[node._id]);
     }
-    tree.push(nodes[node._id]);
   });
 
   const addPrefixes = (node, prefix) => {
@@ -85,4 +86,11 @@ export function createFlatArray(tree) {
   });
 
   return flatArray;
+}
+
+export function getCookie(name) {
+  const matches = document.cookie.match(
+    new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
