@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-
+import { createTree, createFlatArray } from "../../utils";
 /**
  * Состояние каталога - параметры фильтра исписок товара
  */
@@ -39,7 +39,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
-    await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+    await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
   /**
@@ -49,7 +49,7 @@ class CatalogState extends StoreModule {
    */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const params = {...this.initState().params, ...newParams};
+    const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }
@@ -61,7 +61,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const params = {...this.getState().params, ...newParams};
+    const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -110,13 +110,20 @@ class CatalogState extends StoreModule {
 
     const response = await fetch('/api/v1/categories');
     const json = await response.json();
-    const defaultCategory = [{
-      value: '',
-      title: 'Все'
-    }]
-    const categories = json.result.items.reduce((acc, cur) => {
-      return [...acc, {value: cur._id, title: cur.title}]
-    }, defaultCategory)
+    const defaultCategory = [
+      {
+        value: '',
+        title: 'Все'
+      }
+    ];
+
+    const tree = createTree(json.result.items);
+    const items = createFlatArray(tree);
+    const categories = [
+      ...defaultCategory,
+      ...items.map(item => ({ value: item._id, title: `${item.prefix} ${item.title}` }))
+    ];
+
     this.setState({
       ...this.getState(),
       categories,
