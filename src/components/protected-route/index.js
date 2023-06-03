@@ -1,4 +1,4 @@
-import {Navigate, useLocation} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {memo} from 'react';
 import PropTypes from 'prop-types';
 
@@ -23,4 +23,5 @@ ProtectedRoute.propTypes = {
     }),
   }).isRequired
 }
+
 export default memo(ProtectedRoute);
