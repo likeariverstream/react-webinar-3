@@ -1,4 +1,4 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo, useMemo, useCallback} from 'react';
 import SideLayout from '../../components/side-layout';
 import ProfileTool from '../../components/profile-tool';
 import LoginTool from '../../components/login-tool';
@@ -9,10 +9,10 @@ import useStore from '../../hooks/use-store';
 
 function Header() {
   const {t} = useTranslate();
-  const store = useStore()
-  const navigate = useNavigate()
+  const store = useStore();
+  const navigate = useNavigate();
   const select = useSelector(state => ({
-    name: state.user.user.username,
+    user: state.user.user,
     isLogin: state.user.isLogin
   }))
   const callbacks = {
@@ -25,8 +25,8 @@ function Header() {
         {key: 1, title: t('header.logout'), callback: callbacks.onLogout},
       ]), [t]),
       links: useMemo(() => ([
-        {key: 1, title: select.name, path: '/profile'},
-      ]), [t]),
+        {key: 1, title: select.user?.username, path: '/profile'},
+      ]), [select.user]),
     },
     login: {
       buttons: useMemo(() => ([
@@ -34,7 +34,6 @@ function Header() {
       ]), [t])
     }
   };
-
   return(
     <SideLayout side='end'>
        {select.isLogin ? <ProfileTool buttons={options.profile.buttons} links={options.profile.links}/> : <LoginTool buttons={options.login.buttons}/>}

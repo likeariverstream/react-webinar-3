@@ -92,6 +92,7 @@ class UserState extends StoreModule {
           ...this.getState(),
           waiting: false,
           user: {},
+          isLogin: false
         }, 'Удалены данные пользователя')
         deleteCookie('token')
       }

@@ -15,9 +15,9 @@ function Main() {
   const store = useStore();
 
   useInit(() => {
-    store.actions.user.getUserInfo();
     store.actions.catalog.initParams();
     store.actions.catalog.loadCategories();
+    store.actions.user.getUserInfo();
   }, [], true);
 
   const {t} = useTranslate();
