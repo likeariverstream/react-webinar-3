@@ -1,23 +1,39 @@
 .LoginForm{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px 0;
 }
 
 .LoginForm-head {
-    margin: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
 }
 
 .LoginForm-label{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
 }
 
 .LoginForm-error{
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
-    text-align: center;
-    color: #FF0000
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  color: #FF0000;
+}
+
+.LoginForm-input{
+  box-sizing: border-box;
+  border: 1px solid #767676;
+  border-radius: 1px;
+  padding: 3px 3px 5px;
+  min-width: 203px;
 }

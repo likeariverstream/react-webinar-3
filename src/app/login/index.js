@@ -1,22 +1,25 @@
 import { memo, useCallback } from 'react';
-import useStore from "../../hooks/use-store";
-import useTranslate from "../../hooks/use-translate";
-import useInit from "../../hooks/use-init";
-import Navigation from "../../containers/navigation";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import LocaleSelect from "../../containers/locale-select";
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
+import Navigation from '../../containers/navigation';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import LocaleSelect from '../../containers/locale-select';
 import LoginHeader from '../../containers/login-header';
 import LoginForm from '../../components/login-form';
 import SideLayout from '../../components/side-layout';
 import { useNavigate } from 'react-router-dom';
+import useSelector from '../../hooks/use-selector';
+
 function Login() {
   const { t } = useTranslate();
   const navigate = useNavigate();
   const store = useStore();
-  useInit(() => {
-    store.actions.user.getUserInfo();
-  }, [], true);
+
+  const select = useSelector(state => ({
+    error: state.user.error,
+  }));
+
   const callbacks = {
     onLogin: useCallback(data => {
       store.actions.user.login(data)
@@ -29,7 +32,9 @@ function Login() {
     loginLabel: t('login.form.login'),
     passwordLabel: t('login.form.password'),
     buttonText: t('login.form.button'),
+    error: `${t('login.form.error')}: ${select.error}`
   }
+
   return (
     <PageLayout>
       <LoginHeader />

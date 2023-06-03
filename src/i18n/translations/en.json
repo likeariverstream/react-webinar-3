@@ -21,6 +21,7 @@
   "login.form.login": "Login",
   "login.form.password": "Password",
   "login.form.button": "Login",
+  "login.form.error": "Error",
   "profile.title": "Profile",
   "profile.name": "Name",
   "profile.phone": "Phone",

@@ -23,6 +23,7 @@
   "login.form.login": "Логин",
   "login.form.password": "Пароль",
   "login.form.button": "Войти",
+  "login.form.error": "Ошибка",
   "profile.title": "Профиль",
   "profile.name": "Имя",
   "profile.phone": "Телефон",
