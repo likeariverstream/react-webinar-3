@@ -1,12 +1,11 @@
 import StoreModule from "../module";
-import { getCookie } from "../../utils";
+import { getCookie, deleteCookie } from "../../utils";
 
 class UserState extends StoreModule {
 
   initState() {
     return {
       isLogin: !!getCookie('token'),
-      id: getCookie('token'),
       user: {},
       waiting: false,
       error: null
@@ -43,6 +42,7 @@ class UserState extends StoreModule {
   }
 
   async getUserInfo() {
+    if (!!getCookie('token'))
     try {
       this.setState({
         ...this.getState(),
@@ -86,13 +86,14 @@ class UserState extends StoreModule {
           'X-Token': getCookie('token')
         },
       }
-      const response = await fetch('api/v1/users/sign', options)
+      const response = await fetch(`api/v1/users/sign/`, options)
       if (response.ok) {
         this.setState({
           ...this.getState(),
           waiting: false,
           user: {},
         }, 'Удалены данные пользователя')
+        deleteCookie('token')
       }
     } catch (e) {
       this.setState({

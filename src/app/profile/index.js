@@ -38,7 +38,7 @@ function Profile() {
   }
 
   return (
-    <PageLayout>
+    select.name && <PageLayout>
       <Header />
       <Head title={t('title')}>
         <LocaleSelect />
