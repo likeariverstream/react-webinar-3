@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import {memo, useCallback} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import Navigation from '../../containers/navigation';
@@ -8,16 +8,16 @@ import LocaleSelect from '../../containers/locale-select';
 import Header from '../../containers/header';
 import LoginForm from '../../components/login-form';
 import SideLayout from '../../components/layouts/side-layout';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 
 function Login() {
-  const { t } = useTranslate();
+  const {t} = useTranslate();
   const navigate = useNavigate();
   const store = useStore();
 
   const select = useSelector(state => ({
-    error: state.user.error,
+    error: state.user.loginError,
   }));
 
   const callbacks = {
@@ -37,11 +37,11 @@ function Login() {
 
   return (
     <PageLayout>
-      <Header />
+      <Header/>
       <Head title={t('title')}>
-        <LocaleSelect />
+        <LocaleSelect/>
       </Head>
-      <Navigation />
+      <Navigation/>
       <SideLayout side='start' padding='medium'>
         <LoginForm options={options} />
       </SideLayout>

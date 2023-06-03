@@ -4,26 +4,25 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function ProfileInfo(props) {
-    const { options } = props
-    const cn = bem('ProfileInfo');
-
-    return (
-        <div className={cn()}>
-            <h2 className={cn('title')}>{options.translations.title}</h2>
-            <div className={cn('prop')}>
-                <div className={cn('label')}>{options.translations.name}:</div>
-                <div className={cn('value')}>{options.name}</div>
-            </div>
-            <div className={cn('prop')}>
-                <div className={cn('label')}>{options.translations.phone}:</div>
-                <div className={cn('value')}>{options.phone}</div>
-            </div>
-            <div className={cn('prop')}>
-                <div className={cn('label')}>{options.translations.email}:</div>
-                <div className={cn('value')}>{options.email}</div>
-            </div>
-        </div>
-    );
+  const { options } = props
+  const cn = bem('ProfileInfo');  
+  return (
+    <div className={cn()}>
+      <h2 className={cn('title')}>{options.translations.title}</h2>
+      <div className={cn('prop')}>
+        <div className={cn('label')}>{options.translations.name}:</div>
+        <div className={cn('value')}>{options.name}</div>
+      </div>
+      <div className={cn('prop')}>
+        <div className={cn('label')}>{options.translations.phone}:</div>
+        <div className={cn('value')}>{options.phone}</div>
+      </div>
+      <div className={cn('prop')}>
+        <div className={cn('label')}>{options.translations.email}:</div>
+        <div className={cn('value')}>{options.email}</div>
+      </div>
+    </div>
+  );
 }
 
 ProfileInfo.propTypes = {

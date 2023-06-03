@@ -1,5 +1,5 @@
-import StoreModule from "../module";
-import { getCookie, deleteCookie } from "../../utils";
+import StoreModule from '../module';
+import {getCookie, deleteCookie} from '../../utils';
 
 class UserState extends StoreModule {
 
@@ -8,7 +8,8 @@ class UserState extends StoreModule {
       isLogin: !!getCookie('token'),
       user: {},
       waiting: false,
-      error: null
+      error: null,
+      loginError: null,
     }
   }
   async login(data) {
@@ -36,8 +37,8 @@ class UserState extends StoreModule {
       this.setState({
         ...this.getState(),
         waiting: false,
-        error: e.message
-      }, 'Произошла ошибка')
+        loginError: e.message
+      }, 'Произошла ошибка при логине')
     }
   }
 

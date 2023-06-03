@@ -1,14 +1,14 @@
 .ProfileTool {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px 20px 10px;
-    gap: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px 10px;
+  gap: 20px;
 }
 
 .ProfileTool-link {
-    text-align: center;
-    text-decoration-line: underline;
-    color: #0087E9;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #0087E9;
 }

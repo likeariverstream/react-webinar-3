@@ -36,7 +36,7 @@ function Article() {
 
   return (
     <PageLayout>
-      <Header />
+      <Header/>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>

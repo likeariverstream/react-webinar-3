@@ -1,8 +1,8 @@
-import {memo} from "react";
-import PropTypes, { number } from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import {memo} from 'react';
+import PropTypes, {number} from 'prop-types';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 function ProfileTool(props) {
   const cn = bem('ProfileTool');

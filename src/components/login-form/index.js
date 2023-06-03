@@ -1,7 +1,7 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useState} from 'react';
 import './style.css'
-import { cn as bem } from '@bem-react/classname';
-import PropTypes, { number } from 'prop-types';
+import {cn as bem} from '@bem-react/classname';
+import PropTypes from 'prop-types';
 
 function LoginForm(props) {
   const cn = bem('LoginForm')
