@@ -8,7 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import LoginHeader from '../../containers/login-header';
+import Header from '../../containers/header';
 
 function Main() {
 
@@ -17,13 +17,14 @@ function Main() {
   useInit(() => {
     store.actions.catalog.initParams();
     store.actions.catalog.loadCategories();
+    store.actions.user.getUserInfo();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <LoginHeader/>
+      <Header/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

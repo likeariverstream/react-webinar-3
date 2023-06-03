@@ -20,7 +20,7 @@ function LoginForm(props) {
         <input className={cn('input')} value={values.login} name='login' onChange={(e) => setValues({ ...values, login: e.target.value })} /></label>
       <label className={cn('label')}>{options.passwordLabel}
         <input className={cn('input')} value={values.password} name='password' type='password' onChange={(e) => setValues({ ...values, password: e.target.value })} /></label>
-        {options.error && <span className={cn('error')}>{options.error}</span>}
+        <span className={cn('error')}>{options.error}</span>
       <button type='submit'>{options.buttonText}</button>
     </form >
   )

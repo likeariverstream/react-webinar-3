@@ -6,7 +6,7 @@ import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
-import ProfileHeader from '../../containers/profile-header';
+import Header from '../../containers/header';
 import ProfileInfo from '../../components/profile-info';
 import SideLayout from '../../components/side-layout';
 import useSelector from '../../hooks/use-selector';
@@ -39,7 +39,7 @@ function Profile() {
 
   return (
     <PageLayout>
-      <ProfileHeader />
+      <Header />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

@@ -1,9 +1,19 @@
 .ProfileInfo {
-    padding: 20px 40px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  padding: 16px 0 0 0;
+  justify-content: space-between;
+}
   
 .ProfileInfo-label{
   padding-right: 10px;
+}
+.ProfileInfo-title{
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
 }
 
 .ProfileInfo-value{
@@ -11,8 +21,8 @@
 }
 
 .ProfileInfo-prop {
-    margin: 20px 0;
-    display: flex;
-    justify-content: flex-start;
-    font-size: 18px
-  }
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 18px
+}

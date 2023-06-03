@@ -9,7 +9,7 @@ function ProfileInfo(props) {
 
     return (
         <div className={cn()}>
-            <h2>{options.translations.title}</h2>
+            <h2 className={cn('title')}>{options.translations.title}</h2>
             <div className={cn('prop')}>
                 <div className={cn('label')}>{options.translations.name}:</div>
                 <div className={cn('value')}>{options.name}</div>
