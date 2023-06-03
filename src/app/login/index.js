@@ -2,12 +2,12 @@ import { memo, useCallback } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import Navigation from '../../containers/navigation';
-import PageLayout from '../../components/page-layout';
+import PageLayout from '../../components/layouts/page-layout';
 import Head from '../../components/head';
 import LocaleSelect from '../../containers/locale-select';
 import Header from '../../containers/header';
 import LoginForm from '../../components/login-form';
-import SideLayout from '../../components/side-layout';
+import SideLayout from '../../components/layouts/side-layout';
 import { useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 

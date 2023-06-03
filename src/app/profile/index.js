@@ -1,18 +1,18 @@
-import { memo, useCallback, useEffect } from 'react';
+import {memo} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
-import PageLayout from "../../components/page-layout";
+import PageLayout from "../../components/layouts/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import Header from '../../containers/header';
 import ProfileInfo from '../../components/profile-info';
-import SideLayout from '../../components/side-layout';
+import SideLayout from '../../components/layouts/side-layout';
 import useSelector from '../../hooks/use-selector';
 
 function Profile() {
-  const { t } = useTranslate();
+  const {t} = useTranslate();
   const store = useStore();
 
   useInit(() => {

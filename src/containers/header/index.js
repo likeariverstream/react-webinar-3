@@ -1,7 +1,7 @@
 import React, {memo, useMemo, useCallback} from 'react';
-import SideLayout from '../../components/side-layout';
-import ProfileTool from '../../components/profile-tool';
-import LoginTool from '../../components/login-tool';
+import SideLayout from '../../components/layouts/side-layout';
+import ProfileTool from '../../components/tools/profile-tool';
+import LoginTool from '../../components/tools/login-tool';
 import useTranslate from '../../hooks/use-translate';
 import {useNavigate} from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';

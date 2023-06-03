@@ -4,7 +4,7 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
-import SideLayout from "../../components/side-layout";
+import SideLayout from "../../components/layouts/side-layout";
 
 function CatalogFilter() {
 
