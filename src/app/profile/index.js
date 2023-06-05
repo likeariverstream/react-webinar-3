@@ -9,13 +9,19 @@ import ProfileInfo from '../../components/profile-info';
 import SideLayout from '../../components/layouts/side-layout';
 import useSelector from '../../hooks/use-selector';
 import Spinner from '../../components/spinner';
+import useStore from '../../hooks/use-store';
+import useInit from '../../hooks/use-init';
 
 function Profile() {
   const {t} = useTranslate();
+  const store = useStore()
+  useInit(() => {
+    store.actions.profile.getUserInfo();
+  }, [], true);
+  
   const select = useSelector(state => ({
-    user: state.user.user,
-    profile: state.user.user.profile,
-    waiting: state.user.waiting
+    profile: state.profile.profile,
+    waiting: state.profile.waiting
   }))
   const options = {
     translations: {
@@ -24,9 +30,9 @@ function Profile() {
       phone: t('profile.phone'),
       email: t('profile.email'),
     },
-    name: select.profile?.name,
-    phone: select.profile?.phone,
-    email: select.user?.email,
+    name: select.profile.profile?.name,
+    phone: select.profile?.profile?.phone,
+    email: select.profile?.email,
   }
 
   return (

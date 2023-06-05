@@ -17,8 +17,8 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
   
   useEffect(() => {
-    store.actions.user.getUserInfo();
-  }, [store, location], true);
+    store.actions.session.checkAccess();
+  }, [location], true);
   
 
   return (

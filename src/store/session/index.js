@@ -1,22 +1,23 @@
 import StoreModule from '../module';
 import { getCookie, deleteCookie } from '../../utils';
 
-class UserState extends StoreModule {
+class SessionState extends StoreModule {
 
   initState() {
     return {
       isLogin: !!getCookie('token'),
       user: {},
       waiting: false,
-      loginError: null,
-      error: null
+      error: null,
+      generalError: null
     }
   }
   async login(data) {
     this.setState({
       ...this.getState(),
       waiting: true,
-      loginError: null
+      error: null,
+      generalError: null
     }, 'Ожидание логина');
     const options = {
       method: 'POST',
@@ -31,18 +32,22 @@ class UserState extends StoreModule {
       const response = await fetch('api/v1/users/sign', options)
       const json = await response.json()
       if (!json.error) {
+        
         this.setState({
           ...this.getState(),
           waiting: false,
           isLogin: true,
-
         }, 'Логин пользователя')
-
+        
       } else {
+        const {data} = json.error
+        const {issues} = data
+        const generalError = issues.find(issue => issue.path.length === 0).message;
         this.setState({
           ...this.getState(),
           waiting: false,
-          loginError: json.error.message
+          error: json.error,
+          generalError
         }, 'Произошла ошибка при логине')
       }
     } catch (error) {
@@ -50,7 +55,7 @@ class UserState extends StoreModule {
     }
   }
 
-  async getUserInfo() {
+  async checkAccess() {
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -66,7 +71,7 @@ class UserState extends StoreModule {
       },
     }
     try {
-      const response = await fetch(`api/v1/users/self`, options)
+      const response = await fetch(`api/v1/users/self?fields=_id,email, username`, options)
       const json = await response.json()
       console.log(json)
       if (!json.error) {
@@ -81,7 +86,7 @@ class UserState extends StoreModule {
           ...this.getState(),
           waiting: false,
           isLogin: false,
-          error: json.error.message,
+          error: json.error,
         }, 'Произошла ошибка при получении данных пользователя')
         deleteCookie('token')
       }
@@ -118,7 +123,7 @@ class UserState extends StoreModule {
         this.setState({
           ...this.getState(),
           waiting: false,
-          error: json.error.message
+          error: json.error
         }, 'Произошла ошибка при удалении данных пользователя')
       }
     } catch (e) {
@@ -127,4 +132,4 @@ class UserState extends StoreModule {
   }
 }
 
-export default UserState;
+export default SessionState;

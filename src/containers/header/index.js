@@ -12,11 +12,11 @@ function Header() {
   const store = useStore();
   const navigate = useNavigate();
   const select = useSelector(state => ({
-    user: state.user.user,
-    isLogin: state.user.isLogin
+    user: state.session.user,
+    isLogin: state.session.isLogin
   }))
   const callbacks = {
-    onLogout: () => store.actions.user.logout().then(() => navigate('/')),
+    onLogout: () => store.actions.session.logout().then(() => navigate('/')),
     onLogin: () => navigate('/login')
   }
   const options = {

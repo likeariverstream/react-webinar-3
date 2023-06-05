@@ -18,14 +18,14 @@ function Login() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    error: state.user.loginError,
-    isLogin: state.user.isLogin,
-    waiting: state.user.waiting
+    session: state.session,
+    isLogin: state.session.isLogin,
+    waiting: state.session.waiting
   }));
 
   const callbacks = {
     onLogin: useCallback(data => {
-      store.actions.user.login(data)
+      store.actions.session.login(data)
 
     }, [store])
   }
@@ -40,7 +40,7 @@ function Login() {
     loginLabel: t('login.form.login'),
     passwordLabel: t('login.form.password'),
     buttonText: t('login.form.button'),
-    error: select.error && `${t('login.form.error')}: ${select.error}`
+    error: select.session.generalError && `${t('login.form.error')}: ${select.session.generalError}`
   }
 
   return (
