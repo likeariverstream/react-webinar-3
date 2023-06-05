@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom';
-import useSelector from "../hooks/use-selector";
+import {Routes, Route} from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
 import Login from './login'
 import Profile from './profile'
-import ProtectedRoute from '../components/protected-route';
+import ProtectedRoute from '../containers/protected-route';
 import useStore from '../hooks/use-store';
+import useSelector from '../hooks/use-selector';
 /**
  * Приложение
  * @returns {React.ReactElement}
@@ -15,20 +15,18 @@ import useStore from '../hooks/use-store';
 function App() {
   const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
-  const location = useLocation();
+  
   useEffect(() => {
     store.actions.user.getUserInfo();
   }, [store, location], true);
   
-  const select = useSelector(state => ({
-    isLogin: state.user.isLogin
-  }))
+
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>} />
         <Route path={'/login'} element={<Login/>} />
-        <Route path={'/profile'} element={<ProtectedRoute isLogin={select.isLogin} path='/login' location={location}>
+        <Route path={'/profile'} element={<ProtectedRoute>
           <Profile />
         </ProtectedRoute>}/>
         <Route path={'/articles/:id'} element={<Article/>} />
