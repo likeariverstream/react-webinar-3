@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-import { createTree, createFlatArray } from "../../utils";
+
 /**
  * Состояние каталога - параметры фильтра исписок товара
  */
@@ -100,35 +100,6 @@ class CatalogState extends StoreModule {
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
-  }
-
-  async loadCategories() {
-    this.setState({
-      ...this.getState(),
-      waiting: true
-    }, 'Ожидание загрузки категорий');
-
-    const response = await fetch('/api/v1/categories');
-    const json = await response.json();
-    const defaultCategory = [
-      {
-        value: '',
-        title: 'Все'
-      }
-    ];
-
-    const tree = createTree(json.result.items);
-    const items = createFlatArray(tree);
-    const categories = [
-      ...defaultCategory,
-      ...items.map(item => ({value: item._id, title: `${item.prefix}${item.title}`}))
-    ];
-
-    this.setState({
-      ...this.getState(),
-      categories,
-      waiting: false
-    }, 'Загружен список категорий из АПИ');
   }
 
 }

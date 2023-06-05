@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Routes, Route, useLocation} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
@@ -7,14 +7,19 @@ import Article from "./article";
 import Login from './login'
 import Profile from './profile'
 import ProtectedRoute from '../components/protected-route';
+import useStore from '../hooks/use-store';
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
-
+  const store = useStore();
   const activeModal = useSelector(state => state.modals.name);
   const location = useLocation();
+  useEffect(() => {
+    store.actions.user.getUserInfo();
+  }, [store, location], true);
+  
   const select = useSelector(state => ({
     isLogin: state.user.isLogin
   }))

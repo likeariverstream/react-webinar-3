@@ -1,7 +1,5 @@
 import {memo} from 'react';
-import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/layouts/page-layout';
 import Head from '../../components/head';
@@ -13,12 +11,6 @@ import useSelector from '../../hooks/use-selector';
 
 function Profile() {
   const {t} = useTranslate();
-  const store = useStore();
-
-  useInit(() => {
-    store.actions.user.getUserInfo();
-  }, [], true);
-
   const select = useSelector(state => ({
     user: state.user.user,
     profile: state.user.user.profile,
@@ -38,7 +30,7 @@ function Profile() {
 
   return (
     <PageLayout>
-      <Header />
+      <Header/>
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

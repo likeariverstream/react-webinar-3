@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import Navigation from '../../containers/navigation';
@@ -18,14 +18,20 @@ function Login() {
 
   const select = useSelector(state => ({
     error: state.user.loginError,
+    isLogin: state.user.isLogin,
   }));
 
   const callbacks = {
     onLogin: useCallback(data => {
       store.actions.user.login(data)
-      .then(() => navigate('/profile'))
+
     }, [store])
   }
+  useEffect(() => {
+    if (select.isLogin) {
+      navigate(- 1) || navigate('/')
+    }
+  }, [select.isLogin])
   const options = {
     onSubmit: (data) => callbacks.onLogin(data),
     titleLoginForm: t('login.form.title'),
