@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -14,6 +14,7 @@ import useSelector from '../hooks/use-selector';
  */
 function App() {
   const store = useStore();
+
   const activeModal = useSelector(state => state.modals.name);
   useEffect(() => {
     store.actions.session.checkAccess();
