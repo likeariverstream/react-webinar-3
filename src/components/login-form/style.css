@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  padding: 20px 0;
+  padding: 16px 0;
 }
 
 .LoginForm-head {
