@@ -56,7 +56,7 @@ export function createTree(flatArray) {
   const addPrefixes = (node, prefix) => {
     node.prefix = prefix;
     node.children.forEach((child, index) => {
-      const newPrefix = prefix + '-';
+      const newPrefix = prefix + '- ';
       addPrefixes(child, newPrefix);
     });
   };

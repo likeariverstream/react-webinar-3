@@ -121,7 +121,7 @@ class CatalogState extends StoreModule {
     const items = createFlatArray(tree);
     const categories = [
       ...defaultCategory,
-      ...items.map(item => ({ value: item._id, title: `${item.prefix} ${item.title}` }))
+      ...items.map(item => ({value: item._id, title: `${item.prefix}${item.title}`}))
     ];
 
     this.setState({

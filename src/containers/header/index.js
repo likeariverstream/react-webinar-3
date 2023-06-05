@@ -35,7 +35,7 @@ function Header() {
     }
   };
   return(
-    <SideLayout side='end'>
+    <SideLayout side='end' theme='border'>
        {select.isLogin ? <ProfileTool buttons={options.profile.buttons} links={options.profile.links}/> : <LoginTool buttons={options.login.buttons}/>}
     </SideLayout>
   )
