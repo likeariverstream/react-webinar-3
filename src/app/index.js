@@ -14,11 +14,11 @@ import useSelector from '../hooks/use-selector';
  */
 function App() {
   const store = useStore();
-
+  const location = useLocation();
   const activeModal = useSelector(state => state.modals.name);
   useEffect(() => {
     store.actions.session.checkAccess();
-  }, []);
+  }, [location]);
   
 
   return (

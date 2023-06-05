@@ -62,7 +62,8 @@ class SessionState extends StoreModule {
     this.setState({
       ...this.getState(),
       waiting: true,
-      error: null
+      error: null,
+      generalError: null
     }, 'Ожидание данных пользователя');
 
     const options = {
@@ -133,6 +134,7 @@ class SessionState extends StoreModule {
       console.warn(e)
     }
   }
+
 }
 
 export default SessionState;
