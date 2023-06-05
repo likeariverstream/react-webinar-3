@@ -8,6 +8,7 @@ import Header from '../../containers/header';
 import ProfileInfo from '../../components/profile-info';
 import SideLayout from '../../components/layouts/side-layout';
 import useSelector from '../../hooks/use-selector';
+import Spinner from '../../components/spinner';
 
 function Profile() {
   const {t} = useTranslate();
@@ -36,7 +37,9 @@ function Profile() {
       </Head>
       <Navigation />
       <SideLayout side='start' padding='medium'>
+      <Spinner active={select.waiting}>
         <ProfileInfo options={options} />
+      </Spinner>
       </SideLayout>
     </PageLayout>
   )

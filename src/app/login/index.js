@@ -10,6 +10,7 @@ import LoginForm from '../../components/login-form';
 import SideLayout from '../../components/layouts/side-layout';
 import {useNavigate} from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
+import Spinner from '../../components/spinner';
 
 function Login() {
   const {t} = useTranslate();
@@ -19,6 +20,7 @@ function Login() {
   const select = useSelector(state => ({
     error: state.user.loginError,
     isLogin: state.user.isLogin,
+    waiting: state.user.waiting
   }));
 
   const callbacks = {
@@ -49,7 +51,9 @@ function Login() {
       </Head>
       <Navigation/>
       <SideLayout side='start' padding='medium'>
+      <Spinner active={select.waiting}>
         <LoginForm options={options} />
+      </Spinner>
       </SideLayout>
     </PageLayout>
   )
