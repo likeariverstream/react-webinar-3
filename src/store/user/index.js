@@ -80,8 +80,10 @@ class UserState extends StoreModule {
         this.setState({
           ...this.getState(),
           waiting: false,
+          isLogin: false,
           error: json.error.message,
         }, 'Произошла ошибка при получении данных пользователя')
+        deleteCookie('token')
       }
     } catch (e) {
       console.warn(e)
