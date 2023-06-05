@@ -37,6 +37,9 @@ class SessionState extends StoreModule {
           ...this.getState(),
           waiting: false,
           isLogin: true,
+          user: {...this.getState().user,
+            username: json.result.user.username
+          }
         }, 'Логин пользователя')
         
       } else {
