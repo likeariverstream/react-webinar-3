@@ -23,7 +23,7 @@ function Login() {
   const callbacks = {
     onLogin: useCallback(data => {
       store.actions.user.login(data)
-      .then(() =>  navigate('/profile'))
+      .then(() => navigate('/profile'))
     }, [store])
   }
   const options = {
