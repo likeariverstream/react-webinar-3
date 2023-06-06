@@ -35,7 +35,7 @@ function Login() {
   }, [select.isLogin])
   const options = {
     onSubmit: (data) => callbacks.onLogin(values),
-    onChange: (value, name) => {setValues(prevValues => ({...prevValues, [name]: value})) },
+    onChange: (value, name) => setValues(prevValues => ({...prevValues, [name]: value})),
     titleLoginForm: t('login.form.title'),
     loginLabel: t('login.form.login'),
     passwordLabel: t('login.form.password'),
