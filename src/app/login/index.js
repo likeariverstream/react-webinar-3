@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import Navigation from '../../containers/navigation';
@@ -16,7 +16,7 @@ function Login() {
   const {t} = useTranslate();
   const navigate = useNavigate();
   const store = useStore();
-
+  const [values, setValues] = useState({login: '', password: ''})
   const select = useSelector(state => ({
     session: state.session,
     isLogin: state.session.isLogin,
@@ -26,7 +26,6 @@ function Login() {
   const callbacks = {
     onLogin: useCallback(data => {
       store.actions.session.login(data)
-
     }, [store])
   }
   useEffect(() => {
@@ -35,12 +34,14 @@ function Login() {
     }
   }, [select.isLogin])
   const options = {
-    onSubmit: (data) => callbacks.onLogin(data),
+    onSubmit: (data) => callbacks.onLogin(values),
+    onChange: (value, name) => {setValues(prevValues => ({...prevValues, [name]: value})) },
     titleLoginForm: t('login.form.title'),
     loginLabel: t('login.form.login'),
     passwordLabel: t('login.form.password'),
     buttonText: t('login.form.button'),
-    error: select.session.generalError && `${t('login.form.error')}: ${select.session.generalError}`
+    error: select.session.generalError && `${t('login.form.error')}: ${select.session.generalError}`,
+    values
   }
 
   return (
