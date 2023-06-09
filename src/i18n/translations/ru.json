@@ -8,7 +8,7 @@
   "basket.empty": "пусто",
   "basket.total": "Итого",
   "basket.unit": "шт",
-  "basket.delete": "Удалить",
+  "basket.delete": "Удалить", 
   "basket.articles": {
     "one": "товар",
     "few": "товара",
@@ -22,5 +22,11 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comments.title": "Комментарии",
+  "comments.login": "Войдите",
+  "comments.description": ", чтобы иметь возможность комментировать",
+  "comments.form.title": "Новый комментарий",
+  "comments.form.button": "Отправить",
+  "comments.form.answer": "Новый ответ "
 }

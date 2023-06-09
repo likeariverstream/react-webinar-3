@@ -14,6 +14,7 @@ import TopHead from "../../containers/top-head";
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
+import CommentsSection from '../../containers/comments-section';
 
 function Article() {
   const store = useStore();
@@ -44,6 +45,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+      <CommentsSection />
     </PageLayout>
   );
 }

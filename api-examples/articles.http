@@ -17,7 +17,7 @@ GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=10&fields=items(_
 # Товар по id
 
 GET http://example.front.ylab.io/api/v1/articles/646b6e1fe1626c0bd8518064
-
+GET http://example.front.ylab.io/api/v1/comments?search[parent]=648047125240ea36e36989ee&limit=10&skip=20&fields=*
 ###
 # Товар по id с подробностями о стране и категории
 
