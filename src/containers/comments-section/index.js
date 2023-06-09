@@ -21,7 +21,7 @@ function CommentsSection() {
   const store = useStore();
   const [values, setValues] = useState({
     text: '',
-    
+
   });
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -52,36 +52,40 @@ function CommentsSection() {
     }, [select.items, values.text]),
     // Колбэк на ввод в формe
     onChange: useCallback((value, name) => {
-      setValues(prevValues => ({...prevValues, [name]: value}));
+      setValues(prevValues => ({ ...prevValues, [name]: value }));
     }, [values.text]),
   }
   console.log(select.items)
   console.log(options.comments)
   return (
     <>
-      <h2>{`${t('comments.title')} (${select.count || 0})`}</h2>
-      {exists ? (
-        <><Spinner active={select.waiting}>
-          <CommentList 
-          data={options.comments}
-          onClick={callbacks.addComment}
-          value={values.text}
-          name='text'
-          onChange={callbacks.onChange}
-          type='comment'
-          title={t('comments.form.answer')}
-          button={t('comments.form.button')} />
-        </Spinner><SideLayout>
-            <CommentForm 
-            id={params.id}
-            value={values.text}
-            onChange={callbacks.onChange}
-            onClick={callbacks.addComment}
-            type='article' name='text'
-            title={t('comments.form.title')}
-            button={t('comments.form.button')}/>
-          </SideLayout></>) : (
-        <><Link to='/login' state={{ back: location.pathname }}>{t('comments.login')}</Link><span>{t('comments.description')}</span></>)}
+      <SideLayout side='start' padding='medium'>
+        <SideLayout side='start' padding='medium'>
+          <h2>{`${t('comments.title')} (${select.count || 0})`}</h2>
+        </SideLayout>
+        {exists ? (
+          <><Spinner active={select.waiting}>
+            <CommentList
+              data={options.comments}
+              onClick={callbacks.addComment}
+              value={values.text}
+              name='text'
+              onChange={callbacks.onChange}
+              type='comment'
+              title={t('comments.form.answer')}
+              button={t('comments.form.button')} />
+          </Spinner>
+            <CommentForm
+              id={params.id}
+              value={values.text}
+              onChange={callbacks.onChange}
+              onClick={callbacks.addComment}
+              type='article' name='text'
+              title={t('comments.form.title')}
+              button={t('comments.form.button')} />
+          </>) : (
+          <><Link to='/login' state={{ back: location.pathname }}>{t('comments.login')}</Link><span>{t('comments.description')}</span></>)}
+      </SideLayout>
     </>
   );
 }
