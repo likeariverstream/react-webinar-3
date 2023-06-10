@@ -35,8 +35,7 @@ function CommentItem(props) {
     onOpenCommentForm: () => openForm(id),
     onCloseCommentForm: () => closeForm(),
   }
-  console.log(user === author)
-  const offsetCondition = count < 10 ? (count - 1) : 0
+  const offsetCondition = count < 16 ? (count - 1) : 14
   return (
     <div className={cn()} style={{ width: `calc(100% - ${offsetCondition * 30}px)` }}>
       <div className={cn('head')}>
