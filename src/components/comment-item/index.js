@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, { memo } from "react";
 import PropTypes, { string, bool, func, node } from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -23,6 +23,11 @@ function CommentItem(props) {
     open,
     openForm,
     closeForm,
+    cancel,
+    login,
+    answer,
+    descriptionAnswer,
+    cancelSend,
   } = props;
   const cn = bem('CommentItem');
   const callbacks = {
@@ -39,18 +44,23 @@ function CommentItem(props) {
       <div className={cn('text')}>
         {text}
       </div>
-      <button className={cn('button')} onClick={callbacks.onOpenCommentForm}>Ответить</button>
+      {open !== id && <button className={cn('button')} onClick={callbacks.onOpenCommentForm}>{answer}</button>}
       {exists ? (open === id && <CommentForm
-        id={id} value={value}
+        id={id}
+        value={value}
         onChange={onChange}
         onClick={onClick}
-        type={type} name={name}
+        type={type}
+        name={name}
         title={title}
-        button={button} />) : (open === id && <span>
-          <Link to={path} state={{ back: location.pathname }}>
-            Войдите</Link>чтобы иметь возможность ответить
-          <button className={cn('cancel')} onClick={callbacks.onCloseCommentForm}>Отмена</button>
-        </span>)
+        button={button}
+        cancel={cancel}
+        onCancel={callbacks.onCloseCommentForm}
+      />) : (open === id && <span>
+        <Link to={path} state={{ back: location.pathname }}>
+          {login}</Link>{descriptionAnswer}
+        <button className={cn('cancel')} onClick={callbacks.onCloseCommentForm}>{cancelSend}</button>
+      </span>)
       }
     </div>
   )
@@ -72,6 +82,7 @@ CommentItem.propTypes = {
   open: string,
   openForm: func,
   closeForm: func,
+  cancel: string
 }
 
 

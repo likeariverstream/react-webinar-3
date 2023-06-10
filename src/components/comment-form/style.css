@@ -1,4 +1,13 @@
 .CommentForm {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.CommentForm-head {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
 }

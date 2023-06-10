@@ -26,5 +26,7 @@
   "comments.description": " to be able to comment",
   "comments.form.title": "New comment",
   "comments.form.button": "Send",
-  "comments.form.answer": "New answer"
+  "comments.form.answer": "New answer",
+  "comments.form.cancel": "Cancel",
+  "comments.answer.answer": "Answer"
 }

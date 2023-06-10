@@ -37,7 +37,7 @@ function listToTree(list) {
   }
   
   export function transformComments(data) {
-    const sortedData = data.sort((a, b) => new Date(b.dateCreate) - new Date(a.dateCreate));
+    const sortedData = data.sort((a, b) => new Date(a.dateCreate) - new Date(b.dateCreate));
     const tree = listToTree(sortedData);
     const result = treeToList(tree, (item) => item, 0, 1);
     

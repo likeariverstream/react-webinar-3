@@ -28,5 +28,9 @@
   "comments.description": ", чтобы иметь возможность комментировать",
   "comments.form.title": "Новый комментарий",
   "comments.form.button": "Отправить",
-  "comments.form.answer": "Новый ответ "
+  "comments.form.answer": "Новый ответ ",
+  "comments.form.cancel": "Отмена",
+  "comments.answer.answer": "Ответить",
+  "comments.answer.cansel": "Отменить",
+  "comments.answer.description": ", чтобы иметь возможность ответить"
 }

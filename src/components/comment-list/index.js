@@ -28,7 +28,12 @@ function CommentList(props) {
             exists={props.exists}
             open={props.open}
             openForm={props.openForm}
-            closeForm={props.closeForm} />
+            closeForm={props.closeForm}
+            cancel={props.cancel}
+            descriptionAnswer={props.descriptionAnswer}
+            cancelSend={props.cancelSend}
+            login={props.login}
+            answer={props.answer} />
         }
       })}
     </section>
@@ -57,7 +62,12 @@ CommentList.propTypes = {
   exists: bool,
   open: string,
   openForm: func,
-  closeForm: func
+  closeForm: func,
+  cancel: string,
+  descriptionAnswer: string,
+  cancelSend: string,
+  login: string,
+  answer: string
 }
 
 export default memo(CommentList);

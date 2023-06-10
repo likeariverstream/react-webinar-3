@@ -84,7 +84,12 @@ function CommentsSection() {
           exists={exists}
           open={select.open}
           openForm={callbacks.openForm}
-          closeForm={callbacks.closeForm} />
+          closeForm={callbacks.closeForm}
+          cancel={t('comments.form.cancel')}
+          login={t('comments.login')}
+          descriptionAnswer={t('comments.form.answer')}
+          cancelSend={t('comments.form.cancel')}
+          answer={t('comments.answer.answer')} />
       </Spinner>
       {exists ? (select.open === params.id && <CommentForm
         id={params.id}
@@ -94,7 +99,7 @@ function CommentsSection() {
         type='article' name='text'
         title={t('comments.form.title')}
         button={t('comments.form.button')} />) : (
-      <span><Link to='/login' state={{ back: location.pathname }}>{t('comments.login')}</Link>{t('comments.description')}</span>)}
+        <span><Link to='/login' state={{ back: location.pathname }}>{t('comments.login')}</Link>{t('comments.description')}</span>)}
     </CommentsLayout>
   );
 }
