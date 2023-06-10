@@ -1,4 +1,7 @@
 .CommentList {
   display: flex;
   flex-direction: column;
+  margin-top: -8px;
+  gap: 30px;
+  align-items: flex-end;
 }

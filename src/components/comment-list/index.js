@@ -1,16 +1,16 @@
-import React, {memo} from "react";
+import React, { memo } from "react";
 import './style.css'
-import PropTypes, { arrayOf, string, func, shape } from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import PropTypes, { arrayOf, string, func, shape, bool } from "prop-types";
+import { cn as bem } from '@bem-react/classname';
 import CommentItem from "../comment-item";
 
 function CommentList(props) {
   const cn = bem('CommentList');
-  return(
+  return (
     props.data && <section className={cn()}>
-        {props.data.map(item => {
-          if(item) {
-            return <CommentItem 
+      {props.data.map(item => {
+        if (item) {
+          return <CommentItem
             key={item._id}
             id={item._id}
             author={item.author.profile.name}
@@ -23,9 +23,14 @@ function CommentList(props) {
             type={props.type}
             title={props.title}
             button={props.button}
-            count={item.count}/>
-          }
-        })}
+            count={item.count}
+            path={props.path}
+            exists={props.exists}
+            open={props.open}
+            openForm={props.openForm}
+            closeForm={props.closeForm} />
+        }
+      })}
     </section>
   )
 }
@@ -47,7 +52,12 @@ CommentList.propTypes = {
   type: string.isRequired,
   value: string.isRequired,
   name: string.isRequired,
-  title: string.isRequired
+  title: string.isRequired,
+  path: string,
+  exists: bool,
+  open: string,
+  openForm: func,
+  closeForm: func
 }
 
 export default memo(CommentList);

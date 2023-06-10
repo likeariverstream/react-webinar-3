@@ -7,12 +7,13 @@ import useInit from '../../hooks/use-init';
 import Spinner from '../../components/spinner';
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import shallowequal from 'shallowequal';
-import SideLayout from '../../components/side-layout';
 import commentsActions from '../../store-redux/comments/actions'
 import CommentForm from '../../components/comment-form';
 import CommentList from '../../components/comment-list';
 import { transformComments } from '../../utils/transform-comments';
 import { Link } from 'react-router-dom';
+import CommentsLayout from '../../components/comments-layout';
+import SideLayout from '../../components/side-layout';
 
 function CommentsSection() {
   const dispatch = useDispatch();
@@ -25,12 +26,14 @@ function CommentsSection() {
   });
   useInit(() => {
     dispatch(commentsActions.load(params.id));
+    dispatch(commentsActions.openArticleCommentForm(params.id))
   }, [params.id]);
   const exists = useSelector(state => state.session.exists)
   const select = useSelectorRedux(state => ({
     items: state.comments.items,
     count: state.comments.count,
-    waiting: state.comments.waiting
+    waiting: state.comments.waiting,
+    open: state.comments.open
   }), shallowequal);
   const { t } = useTranslate();
 
@@ -54,39 +57,45 @@ function CommentsSection() {
     onChange: useCallback((value, name) => {
       setValues(prevValues => ({ ...prevValues, [name]: value }));
     }, [values.text]),
+
+    openForm: useCallback((id) => {
+      dispatch(commentsActions.openCommentForm(id));
+    }, [select.open]),
+
+    closeForm: useCallback(() => {
+      dispatch(commentsActions.openArticleCommentForm(params.id));
+    }, [select.open])
   }
-  console.log(select.items)
-  console.log(options.comments)
+
   return (
-    <>
-      <SideLayout side='start' padding='medium'>
-        <SideLayout side='start' padding='medium'>
-          <h2>{`${t('comments.title')} (${select.count || 0})`}</h2>
-        </SideLayout>
-        {exists ? (
-          <><Spinner active={select.waiting}>
-            <CommentList
-              data={options.comments}
-              onClick={callbacks.addComment}
-              value={values.text}
-              name='text'
-              onChange={callbacks.onChange}
-              type='comment'
-              title={t('comments.form.answer')}
-              button={t('comments.form.button')} />
-          </Spinner>
-            <CommentForm
-              id={params.id}
-              value={values.text}
-              onChange={callbacks.onChange}
-              onClick={callbacks.addComment}
-              type='article' name='text'
-              title={t('comments.form.title')}
-              button={t('comments.form.button')} />
-          </>) : (
-          <><Link to='/login' state={{ back: location.pathname }}>{t('comments.login')}</Link><span>{t('comments.description')}</span></>)}
-      </SideLayout>
-    </>
+    <CommentsLayout side='start' padding='medium'>
+      <h2>{`${t('comments.title')} (${select.count || 0})`}</h2>
+      <Spinner active={select.waiting}>
+        <CommentList
+          data={options.comments}
+          onClick={callbacks.addComment}
+          value={values.text}
+          name='text'
+          onChange={callbacks.onChange}
+          type='comment'
+          title={t('comments.form.answer')}
+          button={t('comments.form.button')}
+          path='/login'
+          exists={exists}
+          open={select.open}
+          openForm={callbacks.openForm}
+          closeForm={callbacks.closeForm} />
+      </Spinner>
+      {exists ? (select.open === params.id && <CommentForm
+        id={params.id}
+        value={values.text}
+        onChange={callbacks.onChange}
+        onClick={callbacks.addComment}
+        type='article' name='text'
+        title={t('comments.form.title')}
+        button={t('comments.form.button')} />) : (
+      <span><Link to='/login' state={{ back: location.pathname }}>{t('comments.login')}</Link>{t('comments.description')}</span>)}
+    </CommentsLayout>
   );
 }
 

@@ -45,4 +45,12 @@ export default {
       }
     }
   },
+
+  openCommentForm: (id) => {
+    return { type: 'comment/open-comment-form', payload: {id} };
+  },
+
+  openArticleCommentForm: (id) => {
+    return { type: 'comment/open-article-form', payload: {id} };
+  }
 }
