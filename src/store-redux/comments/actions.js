@@ -31,7 +31,7 @@ export default {
       
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?lang=ru&fields=*`,
+          url: `/api/v1/comments?lang=ru&fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)`,
           method: 'POST',
           body: JSON.stringify(data)
         });

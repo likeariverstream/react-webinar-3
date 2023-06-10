@@ -33,7 +33,7 @@ function CommentsSection() {
   useInit(() => {
     dispatch(commentsActions.load(params.id));
     dispatch(commentsActions.openArticleCommentForm(params.id))
-  }, [params.id, select.item]);
+  }, [params.id]);
   const exists = useSelector(state => state.session.exists)
   const { t } = useTranslate();
 
