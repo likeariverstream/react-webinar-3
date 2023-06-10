@@ -6,6 +6,7 @@
   resize: none;
   width: 100%;
   padding: 4px 5px;
+  min-height: 80px;
 }
 
 .Textarea:focus {
