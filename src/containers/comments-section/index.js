@@ -51,8 +51,13 @@ function CommentsSection() {
           _type: type
         }
       }
-      
-      dispatch(commentsActions.createComment(data)).then(() => setValues({text: ''}))
+      if (values.text !== '') {
+        dispatch(commentsActions.createComment(data))
+        .then(() => setValues({text: ''}))
+        .then(() => {
+          dispatch(commentsActions.openArticleCommentForm(params.id))
+        })
+      }
     }, [select.items, values.text, select.item]),
     // Колбэк на ввод в формe
     onChange: useCallback((value, name) => {

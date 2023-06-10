@@ -5,4 +5,9 @@
   box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
   resize: none;
   width: 100%;
+  padding: 4px 5px;
+}
+
+.Textarea:focus {
+  outline: none
 }
