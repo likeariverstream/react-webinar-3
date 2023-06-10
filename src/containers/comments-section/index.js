@@ -51,7 +51,7 @@ function CommentsSection() {
           _type: type
         }
       }
-      if (values.text !== '') {
+      if (values.text.trim() !== '') {
         dispatch(commentsActions.createComment(data))
         .then(() => setValues({text: ''}))
         .then(() => {
