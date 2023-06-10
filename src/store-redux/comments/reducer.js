@@ -29,7 +29,8 @@ const initialState = {
 
       case 'comment/create-success':
         return { ...state, 
-          // items: [...state.items, action.payload.data],
+          item: action.payload.data,
+          // items: [...state.items, {_id: action.payload.data, text: 'f', dateCreate: 'kfjdkfdjfkd', author.p}],
           waiting: false};
 
       case 'comment/create-error':

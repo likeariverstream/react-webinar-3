@@ -13,7 +13,6 @@ import CommentList from '../../components/comment-list';
 import { transformComments } from '../../utils/transform-comments';
 import { Link } from 'react-router-dom';
 import CommentsLayout from '../../components/comments-layout';
-import SideLayout from '../../components/side-layout';
 
 function CommentsSection() {
   const dispatch = useDispatch();
@@ -24,17 +23,18 @@ function CommentsSection() {
     text: '',
 
   });
-  useInit(() => {
-    dispatch(commentsActions.load(params.id));
-    dispatch(commentsActions.openArticleCommentForm(params.id))
-  }, [params.id]);
-  const exists = useSelector(state => state.session.exists)
   const select = useSelectorRedux(state => ({
     items: state.comments.items,
     count: state.comments.count,
     waiting: state.comments.waiting,
-    open: state.comments.open
+    open: state.comments.open,
+    item: state.comments.item
   }), shallowequal);
+  useInit(() => {
+    dispatch(commentsActions.load(params.id));
+    dispatch(commentsActions.openArticleCommentForm(params.id))
+  }, [params.id, select.item]);
+  const exists = useSelector(state => state.session.exists)
   const { t } = useTranslate();
 
   const options = {
@@ -51,8 +51,9 @@ function CommentsSection() {
           _type: type
         }
       }
-      dispatch(commentsActions.createComment(data))
-    }, [select.items, values.text]),
+      
+      dispatch(commentsActions.createComment(data)).then(() => setValues({text: ''}))
+    }, [select.items, values.text, select.item]),
     // Колбэк на ввод в формe
     onChange: useCallback((value, name) => {
       setValues(prevValues => ({ ...prevValues, [name]: value }));
@@ -64,6 +65,7 @@ function CommentsSection() {
 
     closeForm: useCallback(() => {
       dispatch(commentsActions.openArticleCommentForm(params.id));
+      setValues({text: ''})
     }, [select.open])
   }
 
