@@ -94,7 +94,7 @@ function CommentsSection() {
           login={t('comments.login')}
           title={t('comments.form.answer')}
           button={t('comments.form.button')}
-          descriptionAnswer={t('comments.form.answer')}
+          descriptionAnswer={t('comments.answer.description')}
           cancelSend={t('comments.form.cancel')}
           answer={t('comments.answer.answer')}
           user={user?.name} />

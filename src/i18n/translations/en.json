@@ -28,5 +28,6 @@
   "comments.form.button": "Send",
   "comments.form.answer": "New answer",
   "comments.form.cancel": "Cancel",
-  "comments.answer.answer": "Answer"
+  "comments.answer.answer": "Answer",
+  "comments.answer.description": " to be able to answer. "
 }
