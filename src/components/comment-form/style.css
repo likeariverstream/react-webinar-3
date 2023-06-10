@@ -1,7 +1,7 @@
 .CommentForm {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   justify-content: flex-start;
   width: 100%;
 }
