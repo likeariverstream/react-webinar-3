@@ -18,7 +18,6 @@ function CommentsSection() {
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
   const params = useParams();
-  const store = useStore();
   const [values, setValues] = useState({
     text: '',
 
@@ -35,6 +34,7 @@ function CommentsSection() {
     dispatch(commentsActions.openArticleCommentForm(params.id))
   }, [params.id]);
   const exists = useSelector(state => state.session.exists)
+  const user = useSelector(state => state.session.user.profile)
   const { t } = useTranslate();
 
   const options = {
@@ -80,8 +80,6 @@ function CommentsSection() {
           name='text'
           onChange={callbacks.onChange}
           type='comment'
-          title={t('comments.form.answer')}
-          button={t('comments.form.button')}
           path='/login'
           exists={exists}
           open={select.open}
@@ -89,9 +87,12 @@ function CommentsSection() {
           closeForm={callbacks.closeForm}
           cancel={t('comments.form.cancel')}
           login={t('comments.login')}
+          title={t('comments.form.answer')}
+          button={t('comments.form.button')}
           descriptionAnswer={t('comments.form.answer')}
           cancelSend={t('comments.form.cancel')}
-          answer={t('comments.answer.answer')} />
+          answer={t('comments.answer.answer')}
+          user={user?.name} />
       </Spinner>
       {exists ? (select.open === params.id && <CommentForm
         id={params.id}

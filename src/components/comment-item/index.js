@@ -28,17 +28,19 @@ function CommentItem(props) {
     answer,
     descriptionAnswer,
     cancelSend,
+    user,
   } = props;
   const cn = bem('CommentItem');
   const callbacks = {
     onOpenCommentForm: () => openForm(id),
     onCloseCommentForm: () => closeForm(),
   }
+  console.log(user === author)
   const offsetCondition = count < 10 ? (count - 1) : 0
   return (
     <div className={cn()} style={{ width: `calc(100% - ${offsetCondition * 30}px)` }}>
       <div className={cn('head')}>
-        <span className={cn('author')}>{author}</span>
+        <span className={author === user ? cn('user') : cn('author')}>{author}</span>
         <span className={cn('date')}>{formatDate(dateCreate)}</span>
       </div>
       <div className={cn('text')}>
@@ -82,7 +84,8 @@ CommentItem.propTypes = {
   open: string,
   openForm: func,
   closeForm: func,
-  cancel: string
+  cancel: string,
+  user: string
 }
 
 

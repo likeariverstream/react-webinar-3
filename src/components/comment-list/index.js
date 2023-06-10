@@ -33,7 +33,8 @@ function CommentList(props) {
             descriptionAnswer={props.descriptionAnswer}
             cancelSend={props.cancelSend}
             login={props.login}
-            answer={props.answer} />
+            answer={props.answer}
+            user={props.user} />
         }
       })}
     </section>
@@ -67,7 +68,8 @@ CommentList.propTypes = {
   descriptionAnswer: string,
   cancelSend: string,
   login: string,
-  answer: string
+  answer: string,
+  user: string
 }
 
 export default memo(CommentList);
