@@ -13,6 +13,7 @@ import CommentList from '../../components/comment-list';
 import { transformComments } from '../../utils/transform-comments';
 import { Link } from 'react-router-dom';
 import CommentsLayout from '../../components/comments-layout';
+import { findId } from '../../utils/find-id';
 
 function CommentsSection() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function CommentsSection() {
     count: state.comments.count,
     waiting: state.comments.waiting,
     open: state.comments.open,
+    openCount: state.comments.openCount,
     item: state.comments.item
   }), shallowequal);
   useInit(() => {
@@ -39,6 +41,7 @@ function CommentsSection() {
 
   const options = {
     comments: useMemo(() => (transformComments(select.items)), [select.items]),
+    openedItemId: useMemo(() => (findId(select.items, select.open)), [select.items, select.open]),
   }
 
   const callbacks = {
@@ -64,8 +67,8 @@ function CommentsSection() {
       setValues(prevValues => ({ ...prevValues, [name]: value }));
     }, [values.text]),
 
-    openForm: useCallback((id) => {
-      dispatch(commentsActions.openCommentForm(id));
+    openForm: useCallback((id, count) => {
+      dispatch(commentsActions.openCommentForm(id, count));
     }, [select.open]),
 
     closeForm: useCallback(() => {
@@ -73,6 +76,7 @@ function CommentsSection() {
       setValues({text: ''})
     }, [select.open])
   }
+
 
   return (
     <CommentsLayout side='start' padding='medium'>
@@ -88,6 +92,7 @@ function CommentsSection() {
           path='/login'
           exists={exists}
           open={select.open}
+          openCount={select.openCount}
           openForm={callbacks.openForm}
           closeForm={callbacks.closeForm}
           cancel={t('comments.form.cancel')}
@@ -97,7 +102,9 @@ function CommentsSection() {
           descriptionAnswer={t('comments.answer.description')}
           cancelSend={t('comments.form.cancel')}
           answer={t('comments.answer.answer')}
-          user={user?.name} />
+          user={user?.name}
+          openedItemId={options.openedItemId}
+          />
       </Spinner>
       {exists ? (select.open === params.id && <CommentForm
         id={params.id}

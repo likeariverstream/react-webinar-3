@@ -46,8 +46,8 @@ export default {
     }
   },
 
-  openCommentForm: (id) => {
-    return { type: 'comment/open-comment-form', payload: {id} };
+  openCommentForm: (id, count) => {
+    return { type: 'comment/open-comment-form', payload: {id, count} };
   },
 
   openArticleCommentForm: (id) => {

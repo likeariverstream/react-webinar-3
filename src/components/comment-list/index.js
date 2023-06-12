@@ -1,16 +1,24 @@
 import React, { memo } from "react";
 import './style.css'
-import PropTypes, { arrayOf, string, func, shape, bool } from "prop-types";
+import PropTypes, { arrayOf, string, func, shape, bool, number } from "prop-types";
 import { cn as bem } from '@bem-react/classname';
 import CommentItem from "../comment-item";
-
+import { Link } from "react-router-dom";
+import CommentForm from "../comment-form";
+import CommentWrapper from "../comment-wrapper";
 function CommentList(props) {
   const cn = bem('CommentList');
+  const callbacks = {
+    onOpenCommentForm: () => props.openForm(id, count),
+    onCloseCommentForm: () => props.closeForm(),
+  }
   return (
     props.data && <section className={cn()}>
-      {props.data.map(item => {
-        if (item) {
-          return <CommentItem
+      {props.data.map((item) => {
+        const offsetCondition = item.count < 16 ? (item.count - 1) : 14;
+        const commentOffsetCondition = props.openCount < 16 ? (props.openCount - 1) : 14;
+        return <>
+          <CommentWrapper offsetCondition={offsetCondition} key={item._id}><CommentItem
             key={item._id}
             id={item._id}
             author={item.author.profile.name}
@@ -33,9 +41,31 @@ function CommentList(props) {
             descriptionAnswer={props.descriptionAnswer}
             cancelSend={props.cancelSend}
             login={props.login}
+            parent={item.parent}
             answer={props.answer}
-            user={props.user} />
-        }
+            user={props.user}
+            offsetCondition={offsetCondition} />
+          </CommentWrapper>
+          {props.exists ? (item._id === props.openedItemId && item.parent._type !== 'article' && <CommentWrapper offsetCondition={commentOffsetCondition}>
+            <CommentForm
+              id={item._id}
+              value={props.value}
+              onChange={props.onChange}
+              onClick={props.onClick}
+              type={props.type}
+              name={props.name}
+              title={props.title}
+              button={props.button}
+              cancel={props.cancel}
+              onCancel={callbacks.onCloseCommentForm}
+            /></CommentWrapper>) : (item._id === props.openedItemId && item.parent._type !== 'article' && <CommentWrapper offsetCondition={commentOffsetCondition}>
+              <span>
+                <Link to={props.path} state={{ back: location.pathname }}>
+                  {props.login}</Link>{props.descriptionAnswer}
+                <button className={cn('cancel')} onClick={callbacks.onCloseCommentForm}>{props.cancelSend}</button>
+              </span></CommentWrapper>)
+          }
+        </>
       })}
     </section>
   )
@@ -69,7 +99,9 @@ CommentList.propTypes = {
   cancelSend: string,
   login: string,
   answer: string,
-  user: string
+  user: string,
+  openedItemId: string,
+  openCount: number
 }
 
 export default memo(CommentList);
