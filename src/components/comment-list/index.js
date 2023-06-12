@@ -13,13 +13,12 @@ function CommentList(props) {
     onCloseCommentForm: () => props.closeForm(),
   }
   return (
-    props.data && <section className={cn()}>
+    <section className={cn()}>
       {props.data.map((item) => {
         const offsetCondition = item.count < 16 ? (item.count - 1) : 14;
         const commentOffsetCondition = props.openCount < 16 ? (props.openCount - 1) : 14;
         return <React.Fragment key={item._id}>
           <CommentWrapper offsetCondition={offsetCondition}><CommentItem
-           
             id={item._id}
             author={item.author.profile.name}
             dateCreate={item.dateCreate}

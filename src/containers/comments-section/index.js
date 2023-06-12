@@ -15,6 +15,7 @@ import CommentsLayout from '../../components/comments-layout';
 import { findId } from '../../utils/find-id';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list'
+import SideLayout from '../../components/side-layout';
 
 function CommentsSection() {
   const dispatch = useDispatch();
