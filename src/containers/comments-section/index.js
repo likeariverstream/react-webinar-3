@@ -14,6 +14,7 @@ import { transformComments } from '../../utils/transform-comments';
 import { Link } from 'react-router-dom';
 import CommentsLayout from '../../components/comments-layout';
 import { findId } from '../../utils/find-id';
+import listToTree from '../../utils/list-to-tree';
 
 function CommentsSection() {
   const dispatch = useDispatch();
