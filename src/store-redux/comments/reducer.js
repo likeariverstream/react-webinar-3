@@ -19,6 +19,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         items: action.payload.data.items,
+        count: action.payload.data.count,
         waiting: false
       };;
 

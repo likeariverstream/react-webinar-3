@@ -10,11 +10,11 @@ import shallowequal from 'shallowequal';
 import commentsActions from '../../store-redux/comments/actions'
 import CommentForm from '../../components/comment-form';
 import CommentList from '../../components/comment-list';
-import { transformComments } from '../../utils/transform-comments';
 import { Link } from 'react-router-dom';
 import CommentsLayout from '../../components/comments-layout';
 import { findId } from '../../utils/find-id';
 import listToTree from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list'
 
 function CommentsSection() {
   const dispatch = useDispatch();
@@ -41,7 +41,9 @@ function CommentsSection() {
   const { t } = useTranslate();
 
   const options = {
-    comments: useMemo(() => (transformComments(select.items)), [select.items]),
+    comments: useMemo(() => treeToList(listToTree(select.items), (item, level) => (
+      { ...item, count: level + 1 }
+    )), [select.items]),
     openedItemId: useMemo(() => (findId(select.items, select.open)), [select.items, select.open]),
   }
 
@@ -77,7 +79,6 @@ function CommentsSection() {
       setValues({text: ''})
     }, [select.open])
   }
-
 
   return (
     <CommentsLayout side='start' padding='medium'>

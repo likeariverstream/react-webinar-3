@@ -17,9 +17,9 @@ function CommentList(props) {
       {props.data.map((item) => {
         const offsetCondition = item.count < 16 ? (item.count - 1) : 14;
         const commentOffsetCondition = props.openCount < 16 ? (props.openCount - 1) : 14;
-        return <>
-          <CommentWrapper offsetCondition={offsetCondition} key={item._id}><CommentItem
-            key={item._id}
+        return <React.Fragment key={item._id}>
+          <CommentWrapper offsetCondition={offsetCondition}><CommentItem
+           
             id={item._id}
             author={item.author.profile.name}
             dateCreate={item.dateCreate}
@@ -65,7 +65,7 @@ function CommentList(props) {
                 <button className={cn('cancel')} onClick={callbacks.onCloseCommentForm}>{props.cancelSend}</button>
               </span></CommentWrapper>)
           }
-        </>
+        </React.Fragment>
       })}
     </section>
   )
