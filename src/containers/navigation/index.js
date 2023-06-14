@@ -30,12 +30,12 @@ function Navigation() {
   }
 
   // Функция для локализации текстов
-  const {t, lang} = useTranslate();
+  const {t} = useTranslate();
 
   const options = {
     menu: useMemo(() => ([
       {key: 1, title: t('menu.main'), link: '/'},
-    ]), [t, lang])
+    ]), [t])
   };
 
   return (
