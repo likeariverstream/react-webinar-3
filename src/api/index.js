@@ -9,6 +9,7 @@ class APIService {
     this.config = config
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      'X-Lang': localStorage.getItem('language')
     }
   }
 

@@ -15,13 +15,11 @@ function Navigation() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.locale.lang
   }));
 
   const callbacks = {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => {
-      //store.actions.modals.open('basket')
       dispatch(modalsActions.open('basket'));
     }, [store]),
 
@@ -32,12 +30,12 @@ function Navigation() {
   }
 
   // Функция для локализации текстов
-  const {t} = useTranslate();
+  const {t, lang} = useTranslate();
 
   const options = {
     menu: useMemo(() => ([
       {key: 1, title: t('menu.main'), link: '/'},
-    ]), [t])
+    ]), [t, lang])
   };
 
   return (
