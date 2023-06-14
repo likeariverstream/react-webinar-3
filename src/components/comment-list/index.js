@@ -6,8 +6,16 @@ import CommentItem from "../comment-item";
 import { Link } from "react-router-dom";
 import CommentForm from "../comment-form";
 import CommentWrapper from "../comment-wrapper";
+import { useScroll } from "../../hooks/use-scroll";
+import { useEffect } from "react";
 function CommentList(props) {
+  const {ref, scrollToRef} = useScroll()
   const cn = bem('CommentList');
+  useEffect(() => {
+    if (ref) {
+      scrollToRef('end')
+    }
+  }, [props.openedItemId])
   const callbacks = {
     onOpenCommentForm: () => props.openForm(id, count),
     onCloseCommentForm: () => props.closeForm(),
@@ -45,7 +53,7 @@ function CommentList(props) {
             user={props.user}
             offsetCondition={offsetCondition} />
           </CommentWrapper>
-          {props.exists ? (item._id === props.openedItemId && item.parent._type !== 'article' && <CommentWrapper offsetCondition={commentOffsetCondition}>
+          {props.exists ? (item._id === props.openedItemId && item.parent._type !== 'article' && <CommentWrapper ref={ref} offsetCondition={commentOffsetCondition}>
             <CommentForm
               id={item._id}
               value={props.value}
@@ -57,7 +65,7 @@ function CommentList(props) {
               button={props.button}
               cancel={props.cancel}
               onCancel={callbacks.onCloseCommentForm}
-            /></CommentWrapper>) : (item._id === props.openedItemId && item.parent._type !== 'article' && <CommentWrapper offsetCondition={commentOffsetCondition}>
+            /></CommentWrapper>) : (item._id === props.openedItemId && item.parent._type !== 'article' && <CommentWrapper ref={ref} offsetCondition={commentOffsetCondition}>
               <span>
                 <Link to={props.path} state={{ back: location.pathname }}>
                   {props.login}</Link>{props.descriptionAnswer}
